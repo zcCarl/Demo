@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://cilyumtmga068"]
+
+[ext_resource type="Texture2D" uid="uid://cooq4frig5sqb" path="res://icon.svg" id="1_8do2x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bbyos"]
+size = Vector2(474, 851)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_te2bp"]
+radius = 68.75
+
+[node name="world" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+disable_mode = 2
+
+[node name="Line2D" type="Line2D" parent="StaticBody2D"]
+points = PackedVector2Array(-243, 432, 243, 432, 243, -432, -243, -432, -243, 432)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1, -0.5)
+shape = SubResource("RectangleShape2D_bbyos")
+one_way_collision = true
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(1, -512)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("CircleShape2D_te2bp")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+texture = ExtResource("1_8do2x")
