@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://btamjefad00g6"]
+
+[ext_resource type="Shader" path="res://shaders/WrapTexture.gdshader" id="1_2bp52"]
+[ext_resource type="Texture2D" uid="uid://cooq4frig5sqb" path="res://icon.svg" id="2_ek0os"]
+
+[resource]
+shader = ExtResource("1_2bp52")
+shader_parameter/speed = 0.1
+shader_parameter/emission_texture = ExtResource("2_ek0os")

@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcdeeoinfdusa"]
+
+[ext_resource type="Script" path="res://scripts/characters/base_character.gd" id="1_35jnm"]
+[ext_resource type="Script" path="res://scripts/machines/base_character_machine.gd" id="2_rscbi"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mdbqa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_feqtj"]
+
+[node name="character_base" type="Node2D"]
+script = ExtResource("1_35jnm")
+
+[node name="body" type="Marker2D" parent="."]
+
+[node name="sprite" type="AnimatedSprite2D" parent="body"]
+sprite_frames = SubResource("SpriteFrames_mdbqa")
+
+[node name="collision_shape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_feqtj")
+
+[node name="animation" type="AnimationPlayer" parent="."]
+
+[node name="state_machine" type="Node" parent="."]
+script = ExtResource("2_rscbi")

@@ -1,11 +1,22 @@
-extends Node
+extends Node2D
 
+class scene extends Node2D:
+	func on_load():
+		pass
+	func on_unload():
+		pass
+	func on_start():
+		pass
+	pass
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+var loading = false
+var cur: scene = null
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func load():
+	if loading:
+		return
+	await co_load()
+	
+func co_load():
+	loading = true
 	pass

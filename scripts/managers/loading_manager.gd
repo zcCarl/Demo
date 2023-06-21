@@ -1,0 +1,15 @@
+extends Node
+
+func forward():
+	print(get_parent().get_child_count())
+	get_parent().move_child(self,get_parent().get_child_count())
+	pass
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass

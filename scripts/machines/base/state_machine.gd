@@ -1,58 +1,52 @@
+extends Node
+
+# We define a class to be used by other nodes.
 class_name state_machine
 
+# We define the current and the old state.
+var state = null: set= set_state
+var previous_state = null
 
-class state:
-	var _name = ""
+# We use a dictionary to define the states, to be defined by whoever inherits this script.
+var states = {}
+# We leave the father of this Node with easy access.
+@onready var parent:base_character = get_parent ()
+
+# The _physics_process function is the recommended function for object loops that use physics
+# The delta argument is updated with each frame.
+# We apply the logic of the current state, as well as checking if you need to change the state, if necessary, change the state.
+func _physics_process(delta):
+	if state != null:
+		_state_logic(delta)
+		var transition =_get_transitions(delta)
+		if transition != null:
+			set_state(transition)
+# Contains the current state logic
+func _state_logic(_delta):
+	pass
+
+# Make appropriate transitions between states.
+func _get_transitions(_delta):
+	pass
+
+# Function for entering a new state.
+func _enter_state(_new_state, _old_state):
+	pass
+
+# State exit function.
+func _exit_state(_old_state, _new_state):
+	pass
+
+# Leaves the current state and enters the new state.
+func set_state(new_state):
+	previous_state = state
+	state = new_state
 	
-	var _context = {}
+	if previous_state != null:
+		_exit_state(previous_state, new_state)
+	if new_state != null:	
+		_enter_state(new_state, previous_state)
 
-	func enter(context):
-		_context = context
-		
-	func exit():
-		pass
-	func process(delta: float):
-		pass
-
-signal state_changed(previous, new)
-
-var is_active = true:
-	set = set_is_active
-
-var _state: state:
-	set = set_state
-var _state_name = ""
-
-var _context = null
-
-func init(context= {}):
-	_context = context
-
-func start(initial_state):
-	change(initial_state)
-	
-func process(delta: float):
-	if(is_active):
-		_state.process(delta)
-
-func change(state, context={}):
-	var previour = _state
-	_state = state
-	if previour!=null :
-		previour.exit()
-	_state.enter(context)
-	_on_state_changed(previour, _state)
-#	Events.player_state_changed.emit(_state.name)
-
-
-func set_is_active(value):
-	is_active = value
-
-func set_state(value):
-	_state = value
-	_state_name = _state._name
-
-
-func _on_state_changed(previous, new):
-	print("state changed")
-	state_changed.emit(previous, new)
+# Adds a new state.
+func add_state(state_name):
+	states[state_name] = states.size()

@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://d4gs8kj8oykp7"]
+
+[ext_resource type="Script" path="res://scripts/managers/loading_manager.gd" id="1_jcv2j"]
+
+[node name="loading" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 432.0
+offset_bottom = 768.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jcv2j")
+
+[node name="Panel" type="Panel" parent="."]
+clip_contents = true
+custom_minimum_size = Vector2(648, 1152)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -54.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(540, 0)
