@@ -8,6 +8,11 @@
 
 config_version=5
 
+[GDExcelExporter]
+
+SettingsDir="res://Settings"
+cmd_path="ee"
+
 [application]
 
 config/name="Demo2"
@@ -18,6 +23,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 main="*res://scripts/main.gd"
+ui_manager="*res://scripts/managers/ui_manager.gd"
 
 [display]
 
@@ -34,7 +40,7 @@ version_control/autoload_on_startup=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/autoload/plugin.cfg")
+enabled=PackedStringArray("res://addons/autoload/plugin.cfg", "res://addons/GDExcelExporter/plugin.cfg")
 
 [input]
 
