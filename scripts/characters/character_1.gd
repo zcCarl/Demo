@@ -28,4 +28,3 @@ func _physics_process(delta):
 		move_direction = Vector2(direction_x,direction_y)
 	
 	#print(move_direction)
-	move(delta)
