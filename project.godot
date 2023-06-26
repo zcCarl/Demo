@@ -24,6 +24,8 @@ config/icon="res://icon.svg"
 
 main="*res://scripts/main.gd"
 ui_manager="*res://scripts/managers/ui_manager.gd"
+Settings="*res://settings/dist/settings.gd"
+Enum="*res://scripts/enum.gd"
 
 [display]
 

@@ -33,27 +33,27 @@ class character_properties extends RefCounted:
 		self.effect_chance = effect_chance
 		self.effect_resist_chance = effect_resist_chance
 	
-
 const SLOPE_STOP = 16
 
 @onready var collision = $"collision_shape"
 @onready var sprite = $"body/sprite"
-
 @onready var body = $"body"
 @onready var animation = $"animation"
 
 var is_battle = true
-
+var skill_target = {}
 var path = []
 var basic_proterties : character_properties 
 var dynamic_proterties : character_properties 
+var skills = []
 var volocity = Vector2()
 var move_speed = 100
 var hurt_knockback = Vector2()
 var move_direction =Vector2()
 
 
-func setup(_config):
+func setup(id):
+	var _config = Settings.character_basic.data[id]
 	basic_proterties = character_properties.new(_config.health_point,
 												_config.magic_point,
 												_config.attack,
@@ -65,49 +65,15 @@ func setup(_config):
 												_config.effect_resist_chance)
 	dynamic_proterties = character_properties.new()
 	dynamic_proterties.copy(basic_proterties) 
-	
-	pass
 
 # We get the move direction and set the sprite scale to that direction
 func handle_movement_point_input(_delta):
-	if path.size()==0 and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		var start = main._game._scene.gloal_to_map(global_position)
-		var end = main._game._scene.gloal_to_map(get_global_mouse_position())
-		print(global_position,get_global_mouse_position(),start,end)
-		path = main._game._scene._auto_road.get_auto_path(start,end)
 	pass
 func handle_movement_cancel_input(_delta):
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
-		path = []
 	pass
 
 func handle_movement_input(_delta):
-	var direction_x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-	var direction_y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-
-	var input_direction = Vector2(direction_x,direction_y)
-	var dir = -1
-	if abs(input_direction.x) > 0 and  abs(input_direction.y)>0 :
-		if abs(input_direction.x) > 0 :
-			input_direction.y = 0
-		elif abs(input_direction.y) > 0 :
-			input_direction.x = 0
-	if input_direction.length():
-		if input_direction.x > 0 :
-			dir = 0
-		elif input_direction.x < 0 :
-			dir = 2
-		elif input_direction.y > 0 :
-			dir = 1
-		elif input_direction.y < 0 :
-			dir = 3
-	if path.size()==0 and dir!=-1:
-		input_direction = input_direction.normalized()
-		var current = main._game._scene.gloal_to_map(global_position)
-		
-		var neighbors = main._game._scene.get_map_dir(current)
-		path = [neighbors[dir]]	
-		print(current,neighbors[dir])
+	pass
 	
 func move_path(_delta):
 	if path.size() > 0:
@@ -122,17 +88,19 @@ func move_path(_delta):
 		velocity = Vector2.ZERO
 	move_and_slide()
 
-func handle_action_area(skill,param,callback):
-	var data = {}
-	data.skill = skill
-	data.param = param
-	data.belong = self
-	data.callback = callback
-	main._game._scene.open_action_area(data)
+func handle_open_action_area():
 	pass
 	
-func skill(skill_id,data):
+func handle_update_action_area():
+	pass
 	
+func skill(skill_index):
+	var skill:base_skill = skills[skill_index]
+	if skill.target_type == Enum.skill_target_type.firends:
+		if skill_target.friends.size() > 0:
+			skill.apply(skill_target.friends)	
+		else:
+			print("技能没有目标")
 	pass
 
 func damage(damage_info):

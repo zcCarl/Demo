@@ -25,7 +25,8 @@ func _state_logic(delta):
 			parent.handle_movement_point_input(delta)
 	if parent.path.size() > 0 or parent.velocity.length()>0:
 		parent.move_path(delta)
-	
+	if state == states.pre_action:
+		parent.handle_open_action_area()
 
 func _get_transitions(_delta):
 	match state:

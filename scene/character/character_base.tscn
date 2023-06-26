@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://dcdeeoinfdusa"]
 
-[ext_resource type="Script" path="res://scripts/characters/base_character.gd" id="1_35jnm"]
+[ext_resource type="Script" path="res://scripts/characters/character.gd" id="1_7q6jq"]
 [ext_resource type="Texture2D" uid="uid://bnsf4sr112h2e" path="res://art/2D Pixel Dungeon Asset Pack/Character_animation/priests_idle/priest3/v1/priest3_v1_1.png" id="2_62li7"]
 [ext_resource type="Script" path="res://scripts/machines/base_character_machine.gd" id="2_rscbi"]
 [ext_resource type="Texture2D" uid="uid://c3gohq6drxdsy" path="res://art/2D Pixel Dungeon Asset Pack/Character_animation/priests_idle/priest3/v1/priest3_v1_2.png" id="3_js075"]
@@ -29,8 +29,8 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_feqtj"]
 
-[node name="character_base" type="CharacterBody2D"]
-script = ExtResource("1_35jnm")
+[node name="character" type="CharacterBody2D"]
+script = ExtResource("1_7q6jq")
 
 [node name="body" type="Marker2D" parent="."]
 

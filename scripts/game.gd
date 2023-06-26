@@ -9,6 +9,7 @@ func _init():
 	_scene = scene.new()
 	main.add_child(_scene)
 	_character= preload("res://scene/character/character_base.tscn").instantiate()
+	_character.setup(1)
 	main.add_child(_character)
 	_character.position=Vector2.RIGHT*200 + Vector2.DOWN *200
 	pass # Replace with function body.

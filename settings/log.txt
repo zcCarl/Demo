@@ -1,0 +1,8 @@
+asyncio-DEBUG:Using proactor: IocpProactor
+excelexporter.engine-INFO:使用插件导出器 GDS2.1 :excelexporter.generators.gds21
+excelexporter.engine-INFO:导出：C:\Work\GoDot\Demo\settings\sample\character.xlsx:character_basic => C:\Work\GoDot\Demo\settings\dist\character\character_basic.gd
+excelexporter.engine-INFO:导出：C:\Work\GoDot\Demo\settings\sample\item.xlsx:item => C:\Work\GoDot\Demo\settings\dist\item\item.gd
+excelexporter.engine-WARNING:~$示例.xlsx 不是配置表，跳过！
+excelexporter.engine-INFO:导出：C:\Work\GoDot\Demo\settings\sample\示例.xlsx:示例-demo => C:\Work\GoDot\Demo\settings\dist\示例\demo.gd
+excelexporter.engine-INFO:导出：C:\Work\GoDot\Demo\settings\sample\示例.xlsx:示例-demo2 => C:\Work\GoDot\Demo\settings\dist\示例\demo2.gd
+excelexporter.generators.gds21-INFO:创建setting.gd
