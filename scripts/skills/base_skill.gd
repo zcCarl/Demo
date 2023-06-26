@@ -4,11 +4,18 @@ class_name base_skill
 var _config 
 
 var target_type = -1
+var skill_range = -1
 
 func setup(config):
 	pass
+	
+func add_target(target):
+	pass
+	
+func add_targets(targets):
+	pass
 
-func apply(targets):
+func apply():
 	
 	pass
 # Called when the node enters the scene tree for the first time.

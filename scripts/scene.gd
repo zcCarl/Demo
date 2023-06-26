@@ -17,19 +17,15 @@ func map_to_gloal(map):
 func get_map_dir(map):
 	return _tile_map.get_surrounding_cells(Vector2i(map))
 	
-func open_action_area(open,skill_info):
-	var skill_target = {}
-	skill_target.enemies = []
-	skill_target.friends = []
+func open_action_area(open:bool,skill_info:base_skill):
+	var skill_target = []
 	if open :
 		return skill_target
 	else:
 		return skill_target
 		
-func refresh_action_area(skill_info):
-	var skill_target = {}
-	skill_target.enemies = []
-	skill_target.friends = []
+func refresh_action_area(skill_info:base_skill):
+	var skill_target = []
 	return skill_target
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

@@ -45,3 +45,5 @@ shape = SubResource("RectangleShape2D_feqtj")
 
 [node name="state_machine" type="Node" parent="."]
 script = ExtResource("2_rscbi")
+
+[node name="Timer" type="Timer" parent="."]

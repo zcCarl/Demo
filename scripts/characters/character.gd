@@ -38,10 +38,16 @@ func handle_movement_input(_delta):
 		path = [neighbors[dir]]	
 		
 func handle_open_action_area():
-	var open = true 
-	var skill_info 
-	skill_target = main._game._scene.open_action_area(open,skill_info)
+	if ready_skill_index > -1:
+		var _skill:base_skill = skills[ready_skill_index]
+		var targets = main._game._scene.open_action_area(true,_skill)
+		_skill.add_targets(targets)
+		
+		
+	
 	
 func handle_update_action_area():
-	var skill_info 
-	skill_target = main._game._scene.refresh_action_area(skill_info)
+	if ready_skill_index > -1:
+		var _skill:base_skill = skills[ready_skill_index]
+		var targets = main._game._scene.refresh_action_area(_skill)
+		_skill.add_targets(targets)

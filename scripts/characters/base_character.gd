@@ -41,11 +41,15 @@ const SLOPE_STOP = 16
 @onready var animation = $"animation"
 
 var is_battle = true
-var skill_target = {}
+var is_turn = false
+var has_moved = false
+var has_action = false
+
 var path = []
 var basic_proterties : character_properties 
 var dynamic_proterties : character_properties 
 var skills = []
+var ready_skill_index = -1
 var volocity = Vector2()
 var move_speed = 100
 var hurt_knockback = Vector2()
@@ -65,7 +69,22 @@ func setup(id):
 												_config.effect_resist_chance)
 	dynamic_proterties = character_properties.new()
 	dynamic_proterties.copy(basic_proterties) 
+func turn_start():
+	is_turn = true 
+	has_moved = false
+	has_action = false
+	
+func turn_end():
+	is_turn = false 
+	has_moved = true
+	has_action = true
 
+func battle_start():
+	is_battle = true
+
+func battle_end():
+	is_battle = false
+	
 # We get the move direction and set the sprite scale to that direction
 func handle_movement_point_input(_delta):
 	pass
@@ -93,15 +112,16 @@ func handle_open_action_area():
 	
 func handle_update_action_area():
 	pass
-	
+
+func skill_ready(skill_index):
+	ready_skill_index = skill_index
+	pass
+
 func skill(skill_index):
 	var skill:base_skill = skills[skill_index]
-	if skill.target_type == Enum.skill_target_type.firends:
-		if skill_target.friends.size() > 0:
-			skill.apply(skill_target.friends)	
-		else:
-			print("技能没有目标")
-	pass
+	if skill.is_verification():
+		return skill.apply()
+	return false
 
 func damage(damage_info):
 	var attacker_properties:character_properties = damage_info.attacker_properties

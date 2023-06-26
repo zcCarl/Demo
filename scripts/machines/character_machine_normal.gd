@@ -1,5 +1,5 @@
 extends state_machine
-class_name base_character_machine
+class_name character_machine_normal
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
