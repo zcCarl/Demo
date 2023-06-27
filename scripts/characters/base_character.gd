@@ -73,6 +73,7 @@ func turn_start():
 	is_turn = true 
 	has_moved = false
 	has_action = false
+	input_pickable = true
 	
 func turn_end():
 	is_turn = false 
@@ -94,6 +95,9 @@ func handle_movement_cancel_input(_delta):
 func handle_movement_input(_delta):
 	pass
 	
+func handle_movement_drag_input(_delta):
+	
+	pass
 func move_path(_delta):
 	if path.size() > 0:
 		move_direction = Vector2(path[0])-Vector2( main._game._scene.gloal_to_map(position))

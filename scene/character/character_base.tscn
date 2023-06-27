@@ -30,6 +30,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_feqtj"]
 
 [node name="character" type="CharacterBody2D"]
+scale = Vector2(4, 4)
 script = ExtResource("1_7q6jq")
 
 [node name="body" type="Marker2D" parent="."]
@@ -45,5 +46,3 @@ shape = SubResource("RectangleShape2D_feqtj")
 
 [node name="state_machine" type="Node" parent="."]
 script = ExtResource("2_rscbi")
-
-[node name="Timer" type="Timer" parent="."]

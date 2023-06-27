@@ -39,7 +39,7 @@ func _get_transitions(_delta):
 			elif parent.velocity.length()>0:
 				return battle_state.move
 			pass
-		battle_state.walk:
+		battle_state.move:
 			if parent.velocity.length()==0:
 				return battle_state.ready
 			pass

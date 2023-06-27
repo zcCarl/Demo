@@ -1,5 +1,5 @@
 extends Node2D
-class_name aotu_road
+class_name auto_road
 var tile_map:TileMap 
 var astar_node : AStar2D 
 var map = {} 
