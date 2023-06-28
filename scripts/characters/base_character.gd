@@ -2,37 +2,6 @@ extends CharacterBody2D
 
 class_name base_character
 
-class character_properties extends RefCounted:
-	var health_point = 0
-	var magic_point = 0
-	var attack = 0
-	var defence = 0
-	var speed = 0
-	var critical_chance = 0
-	var critical_multiple = 0
-	var effect_chance = 0 
-	var effect_resist_chance = 0
-	func copy(tmp:character_properties):
-		health_point=tmp.health_point
-		magic_point=tmp.magic_point
-		attack=tmp.attack
-		defence=tmp.defence
-		speed=tmp.speed
-		critical_chance=tmp.critical_chance
-		critical_multiple=tmp.critical_multiple
-		effect_chance=tmp.effect_chance
-		effect_resist_chance=tmp.effect_resist_chance
-	func _init( health_point = 0,magic_point = 0, attack = 0, defence = 0, speed = 0, critical_chance = 0, critical_multiple = 0, effect_chance = 0 , effect_resist_chance = 0):
-		self.health_point = health_point
-		self.magic_point = magic_point
-		self.attack = attack
-		self.defence = defence
-		self.speed = speed
-		self.critical_chance = critical_chance
-		self.critical_multiple = critical_multiple
-		self.effect_chance = effect_chance
-		self.effect_resist_chance = effect_resist_chance
-	
 const SLOPE_STOP = 16
 
 @onready var collision = $"collision_shape"
@@ -40,35 +9,43 @@ const SLOPE_STOP = 16
 @onready var body = $"body"
 @onready var animation = $"animation"
 
-var is_battle = true
+var team:base_team = null
+var team_index:int = -1
+
+var is_battle = false
 var is_turn = false
 var has_moved = false
 var has_action = false
 
+var dir_str = ""
+
 var path = []
 var basic_proterties : character_properties 
 var dynamic_proterties : character_properties 
-var skills = []
+var skills:Array[base_skill] = []
 var ready_skill_index = -1
 var volocity = Vector2()
-var move_speed = 100
+@export var move_speed = 150
+@export var move_idle_time = 0
 var hurt_knockback = Vector2()
 var move_direction =Vector2()
 
 
 func setup(id):
 	var _config = Settings.character_basic.data[id]
-	basic_proterties = character_properties.new(_config.health_point,
-												_config.magic_point,
-												_config.attack,
-												_config.defence,
-												_config.speed,
-												_config.critical_chance,
-												_config.critical_multiple,
-												_config.effect_chance,
-												_config.effect_resist_chance)
-	dynamic_proterties = character_properties.new()
-	dynamic_proterties.copy(basic_proterties) 
+	basic_proterties = character_properties.new(_config)
+	dynamic_proterties = character_properties.new().copy(basic_proterties) 
+
+func on_join_team(t:base_team,i:int):
+	team = t
+	team_index = i
+	pass
+
+func on_leave_team(t:base_team):
+	if team == t :
+		team_index = -1
+		team = null
+
 func turn_start():
 	is_turn = true 
 	has_moved = false
@@ -82,9 +59,13 @@ func turn_end():
 
 func battle_start():
 	is_battle = true
+	$character_machine_battle.set_enable(true)
+	$character_machine_normal.set_enable(false)
 
 func battle_end():
 	is_battle = false
+	$character_machine_battle.set_enable(false)
+	$character_machine_normal.set_enable(true)
 	
 # We get the move direction and set the sprite scale to that direction
 func handle_movement_point_input(_delta):
@@ -98,19 +79,46 @@ func handle_movement_input(_delta):
 func handle_movement_drag_input(_delta):
 	
 	pass
+var next_move_time = 0
 func move_path(_delta):
-	if path.size() > 0:
-		move_direction = Vector2(path[0])-Vector2( main._game._scene.gloal_to_map(position))
-		if move_direction.length()>0:
-			move_direction=move_direction.normalized()
-		else:
-			path.remove_at(0)
-			return
-	velocity = move_speed * move_direction
-	if path.size() ==0 and velocity.length() < SLOPE_STOP:
-		velocity = Vector2.ZERO
-	move_and_slide()
+#	if path.size() > 0:
+#		move_direction = main._game._scene.map_to_gloal(path[0]) - global_position
+#		if move_direction.length()>5:
+#			move_direction=move_direction.normalized()
+#		else:
+#			path.remove_at(0)
+#			return
+#	velocity = move_speed * move_direction
+#	if path.size() ==0 :
+#		velocity = Vector2.ZERO
+#	move_and_slide()
+	if next_move_time > 0:
+		next_move_time -= _delta
+		return
+	if path.size()>0 :
+		var target_p = path[0]
+		move_direction =target_p - global_position
+		if move_direction.x < 0:
+			self.dir_str = "left"
+		elif move_direction.x > 0:
+			self.dir_str = "right"
+		elif move_direction.y > 0:
+			self.dir_str = "down"
+		elif move_direction.y < 0:
+			self.dir_str = "up"
+		global_position = global_position.move_toward(target_p,move_speed*_delta)
 
+		
+		if move_direction.length()== 0 :
+			path.remove_at(0)
+			if path.size()>0 :
+				next_move_time = move_idle_time
+			else:
+				$body/sprite.play("idle_"+self.dir_str,1,true)
+		else:
+			if self.dir_str!= "" and $body/sprite.animation != "walk_" + self.dir_str:
+				print(self.dir_str)
+				$body/sprite.play("walk_" + self.dir_str,1,true)
 func handle_open_action_area():
 	pass
 	

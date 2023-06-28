@@ -6,7 +6,7 @@ class_name state_machine
 # We define the current and the old state.
 var state = -1: set= set_state
 var previous_state = null
-var enable:bool = false
+@export var enable:bool = false
 # We use a dictionary to define the states, to be defined by whoever inherits this script.
 var states = {}
 # We leave the father of this Node with easy access.

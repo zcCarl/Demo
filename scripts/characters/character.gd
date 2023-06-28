@@ -1,15 +1,18 @@
 extends base_character
 class_name character
+
+func _ready():
+	$character_machine_normal.set_enable(true)
+
 func handle_movement_point_input(_delta):
 	if path.size()==0 and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		var start = main._game._scene.gloal_to_map(global_position)
-		var end = main._game._scene.gloal_to_map(get_global_mouse_position())
-		print(global_position,get_global_mouse_position(),start,end)
-		path = main._game._scene._auto_road.get_auto_path(start,end)
+		path = auto_road.get_auto_path(global_position,get_global_mouse_position())
 
 func handle_movement_cancel_input(_delta):
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
-		path = []
+		if path.size()>0:
+			var last= path[0]
+			path = [last]
 func handle_movement_input(_delta):
 	var direction_x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	var direction_y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
@@ -30,24 +33,21 @@ func handle_movement_input(_delta):
 			dir = 1
 		elif input_direction.y < 0 :
 			dir = 3
-	if path.size()==0 and dir!=-1:
-		input_direction = input_direction.normalized()
-		var current = main._game._scene.gloal_to_map(global_position)
-		
-		var neighbors = main._game._scene.get_map_dir(current)
-		path = [neighbors[dir]]	
+#	if path.size()==0 and dir!=-1:
+#		input_direction = input_direction.normalized()
+#		var current = main._game._scene.gloal_to_map(global_position)
+#
+#		var neighbors = main._game._scene.get_map_dir(current)
+#		path = [neighbors[dir]]	
 		
 func handle_open_action_area():
 	if ready_skill_index > -1:
 		var _skill:base_skill = skills[ready_skill_index]
-		var targets = main._game._scene.open_action_area(true,_skill)
+		var targets = []#main._game._scene.open_action_area(true,_skill)
 		_skill.add_targets(targets)
 		
-		
-	
-	
 func handle_update_action_area():
 	if ready_skill_index > -1:
 		var _skill:base_skill = skills[ready_skill_index]
-		var targets = main._game._scene.refresh_action_area(_skill)
+		var targets = [] #main._game._scene.refresh_action_area(_skill)
 		_skill.add_targets(targets)

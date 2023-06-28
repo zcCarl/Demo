@@ -1,5 +1,4 @@
 extends Node2D
-class_name auto_road
 var tile_map:TileMap 
 var astar_node : AStar2D 
 var map = {} 
@@ -11,7 +10,7 @@ func calculate_point(id):
 	return Vector2( id / 10000000, id % 10000000)
 	pass
 	
-func _init(tileMap:TileMap):
+func setup(tileMap:TileMap):
 	tile_map = tileMap
 	astar_node = AStar2D.new() 
 	for tile in tile_map.get_used_cells(0):
@@ -25,10 +24,14 @@ func _init(tileMap:TileMap):
 		pass
 
 
-func get_auto_path(start_p,end_p):
+func get_auto_path(start,end):
+	var start_p = scene_util.gloal_to_map(tile_map,start)
+	var end_p = scene_util.gloal_to_map(tile_map,end)
 	var start_id = calculate_point_index(start_p)
 	var end_id = calculate_point_index(end_p)
 	var path = astar_node.get_point_path(start_id,end_id)
+	for i in range(0,path.size()) :
+		path[i] = scene_util.map_to_gloal(tile_map,path[i])
 	return path
 
 func _ready():

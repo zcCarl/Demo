@@ -1,0 +1,72 @@
+[gd_scene load_steps=9 format=3 uid="uid://cx71tjv3s3djx"]
+
+[ext_resource type="Texture2D" uid="uid://k0xt0fonnwrx" path="res://art/2D Pixel Dungeon Asset Pack/Character_animation/priests_idle/priest1/v1/priest1_v1_1.png" id="1_x3lt2"]
+[ext_resource type="Texture2D" uid="uid://diqp1laafdenn" path="res://art/2D Pixel Dungeon Asset Pack/Character_animation/priests_idle/priest1/v1/priest1_v1_2.png" id="2_kdofc"]
+[ext_resource type="Texture2D" uid="uid://bu8fvmy81w8fq" path="res://art/2D Pixel Dungeon Asset Pack/Character_animation/priests_idle/priest1/v1/priest1_v1_3.png" id="3_kg4pu"]
+[ext_resource type="Texture2D" uid="uid://crrfkrgsmkvtg" path="res://art/2D Pixel Dungeon Asset Pack/Character_animation/priests_idle/priest1/v1/priest1_v1_4.png" id="4_oxbyu"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a0d2g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_x3lt2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_kdofc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_kg4pu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_oxbyu")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nx2cr"]
+size = Vector2(16, 16)
+
+[sub_resource type="Animation" id="Animation_14s5d"]
+resource_name = "invincible"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body/sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_68wh5"]
+_data = {
+"invincible": SubResource("Animation_14s5d")
+}
+
+[node name="character_1" type="CharacterBody2D"]
+collision_mask = 22
+floor_constant_speed = true
+
+[node name="body" type="Marker2D" parent="."]
+position = Vector2(0, -7.5)
+
+[node name="sprite" type="AnimatedSprite2D" parent="body"]
+sprite_frames = SubResource("SpriteFrames_a0d2g")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7.5)
+shape = SubResource("RectangleShape2D_nx2cr")
+
+[node name="animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_68wh5")
+}
+
+[node name="state_machine" type="Node" parent="."]

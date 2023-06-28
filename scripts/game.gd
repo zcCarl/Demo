@@ -1,19 +1,18 @@
 extends Node2D
 
-class_name game
-
 var _scene : scene
-var _character : base_character
+var _player_team : base_team
 # Called when the node enters the scene tree for the first time.
-func _init():
+func setup():
 	_scene = preload("res://scene_1.tscn").instantiate()
 	add_child(_scene)
-	_character= preload("res://scene/character/character_base.tscn").instantiate()
+	_player_team = base_team.new()
+	add_child(_player_team)
+	var _character= preload("res://scene/character/character_1.tscn").instantiate()
 	_character.setup(1)
-	add_child(_character)
-	_character.position=Vector2.RIGHT*200 + Vector2.DOWN *200
-	_character.battle_start()
-	_character.turn_start()
+	_player_team.join_team(_character)
+	_player_team.setup(1)
+#	ui_manager.show()
 	pass # Replace with function body.
 
 
