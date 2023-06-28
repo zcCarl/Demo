@@ -4,6 +4,8 @@ class_name base_team
 #队长
 var leader :base_character = null
 
+var controller
+
 var members = { }
 
 var is_battle = false

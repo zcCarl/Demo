@@ -1,12 +1,12 @@
 extends Node2D
 class_name scene
-var _drag_handler : drag_handler
+var _player_controller : player_controller
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	auto_road.setup($ground)
-	_drag_handler = drag_handler.new()
-	_drag_handler.name = "drag_handler"
-	add_child(_drag_handler)
+	_player_controller = player_controller.new(self)
+	_player_controller.name = "player_controller"
+	add_child(_player_controller)
 
 func open_action_area(open:bool,skill_info:base_skill):
 	var skill_target = []
