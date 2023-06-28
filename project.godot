@@ -26,6 +26,7 @@ Settings="*res://settings/dist/settings.gd"
 Enum="*res://scripts/enum.gd"
 auto_road="*res://scripts/scene/auto_road.gd"
 ui_root="*res://scene/ui_root.tscn"
+player_controller="*res://scripts/controller/player_controller.gd"
 game="*res://scripts/game.gd"
 
 [display]

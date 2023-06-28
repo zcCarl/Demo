@@ -4,7 +4,7 @@ var _player_controller : player_controller
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	auto_road.setup($ground)
-	_player_controller = player_controller.new(self)
+	_player_controller = player_controller.new()
 	_player_controller.name = "player_controller"
 	add_child(_player_controller)
 

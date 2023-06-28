@@ -1,11 +1,14 @@
-extends Node2D
+extends Node
 
 class_name drag_handler
+
 
 signal drag_node
 var last_z_index = 0
 var last_item_dragged = null
 var drag_items = []
+func _init():
+	name = "drag_handler"
 # Called when the node enters the scene tree for the first time.
 func add_item(item):
 	drag_items.append(item)
