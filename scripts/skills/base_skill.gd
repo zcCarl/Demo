@@ -6,6 +6,8 @@ var _config
 var target_type = -1
 var skill_range = -1
 
+var owner_c:base_character
+
 func setup(config):
 	pass
 	

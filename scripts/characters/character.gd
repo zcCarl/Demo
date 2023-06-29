@@ -2,7 +2,7 @@ extends base_character
 class_name character
 
 func _ready():
-	$character_machine_normal.set_enable(true)
+	$character_machine_normal.set_enable(false)
 
 func handle_movement_point_input(_delta):
 	if path.size()==0 and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):

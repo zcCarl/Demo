@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends Node2D
 
 class_name base_character
 
@@ -50,7 +50,6 @@ func turn_start():
 	is_turn = true 
 	has_moved = false
 	has_action = false
-	input_pickable = true
 	
 func turn_end():
 	is_turn = false 
