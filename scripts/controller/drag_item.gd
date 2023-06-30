@@ -2,7 +2,7 @@ extends Area2D
 
 class_name drag_item
 
-signal on_drag_item
+signal signal_drag_item(item:drag_item)
 
 var hover = false
 
@@ -20,7 +20,7 @@ var reseting = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	player_controller._drag_handler.regiest(self)
+	game._player_controller._drag_handler.regiest(self)
 	pass # Replace with function body.
 
 func set_enable(m_enable):
@@ -31,11 +31,11 @@ func _unhandled_input(event):
 	if enable and event is InputEventMouseButton:
 		if hover:
 			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-				emit_signal("on_drag_item",self)
+				signal_drag_item.emit(self)
 			elif event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
-				emit_signal("on_drag_item",null)
+				signal_drag_item.emit(null)
 		elif is_held:
-			emit_signal("on_drag_item",null)
+			signal_drag_item.emit(null)
 			
 			
 func _mouse_enter():

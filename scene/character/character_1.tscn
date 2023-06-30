@@ -1,9 +1,10 @@
-[gd_scene load_steps=40 format=3 uid="uid://dcdeeoinfdusa"]
+[gd_scene load_steps=41 format=3 uid="uid://dcdeeoinfdusa"]
 
 [ext_resource type="Script" path="res://scripts/characters/character.gd" id="1_akxky"]
 [ext_resource type="Texture2D" uid="uid://b1clsaj8kygb1" path="res://art/Solaria Demo Pack Update 03/16x16/Sprites/Hero 01.png" id="2_aleid"]
-[ext_resource type="Script" path="res://scripts/drag_item.gd" id="5_l1sgf"]
+[ext_resource type="Script" path="res://scripts/controller/drag_item.gd" id="5_x0fi4"]
 [ext_resource type="Script" path="res://scripts/machines/character_machine_normal.gd" id="6_jbqw2"]
+[ext_resource type="PackedScene" uid="uid://la2dwuux1qmu" path="res://scene/hud/character_hud.tscn" id="6_lkc3j"]
 [ext_resource type="Script" path="res://scripts/machines/character_machine_battle.gd" id="7_k4874"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d6uxn"]
@@ -286,7 +287,7 @@ position = Vector2(0, -4)
 sprite_frames = SubResource("SpriteFrames_mdbqa")
 animation = &"idle_down"
 autoplay = "idle_down"
-frame_progress = 0.81347
+frame_progress = 0.932241
 
 [node name="animation" type="AnimationPlayer" parent="."]
 
@@ -297,10 +298,12 @@ script = ExtResource("6_jbqw2")
 script = ExtResource("7_k4874")
 
 [node name="drag_item" type="Area2D" parent="."]
-script = ExtResource("5_l1sgf")
+visible = false
+script = ExtResource("5_x0fi4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="drag_item"]
 shape = SubResource("RectangleShape2D_bkrlt")
 debug_color = Color(0, 0.6, 0.701961, 1)
 
-[connection signal="on_drag_item" from="drag_item" to="drag_item" method="_on_on_drag_item"]
+[node name="character_hud" parent="." instance=ExtResource("6_lkc3j")]
+anchors_preset = 8

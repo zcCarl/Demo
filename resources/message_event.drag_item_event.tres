@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="signal_resource" load_steps=2 format=3 uid="uid://d2k7gplla081r"]
+
+[ext_resource type="Script" path="res://scripts/resources/signal_resource.gd" id="1_jrro8"]
+
+[resource]
+script = ExtResource("1_jrro8")
+type = "drag_item"
