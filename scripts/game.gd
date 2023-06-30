@@ -2,10 +2,12 @@ extends Node2D
 
 var _scene : scene
 var _player_team : base_team
-
+var _camera_controller:camera_controller
 var _ememy_team : base_team
 # Called when the node enters the scene tree for the first time.
 func setup():
+	_camera_controller = preload("res://scene/camera_controller.tscn").instantiate()
+	add_child(_camera_controller)
 	_scene = preload("res://scene_1.tscn").instantiate()
 	add_child(_scene)
 	_player_team = base_team.new()

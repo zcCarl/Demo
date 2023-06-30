@@ -4,7 +4,7 @@
 [ext_resource type="TileSet" uid="uid://6xyp8tf2ugf" path="res://new_tile_set.tres" id="2_bofep"]
 [ext_resource type="Script" path="res://scripts/scene/area_map.gd" id="3_kmhpw"]
 
-[node name="tile_map" type="Node2D"]
+[node name="scene" type="Node2D"]
 scale = Vector2(1, 0.998974)
 script = ExtResource("1_ohaxc")
 
