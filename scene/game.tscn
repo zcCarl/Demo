@@ -1,0 +1,71 @@
+[gd_scene load_steps=13 format=3 uid="uid://b8ea43rmpysku"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_4yx5u"]
+[ext_resource type="Script" path="res://scripts/machines/game_state_init.gd" id="3_3p5t0"]
+[ext_resource type="Script" path="res://scripts/controller/player_controller.gd" id="3_n0au1"]
+[ext_resource type="Script" path="res://scripts/machines/game_state_main.gd" id="4_5dts2"]
+[ext_resource type="Script" path="res://scripts/controller/drag_handler.gd" id="4_6xqlb"]
+[ext_resource type="Script" path="res://scripts/machines/game_state_battle.gd" id="5_4obmt"]
+[ext_resource type="Script" path="res://scripts/controller/camera_controller.gd" id="5_curbj"]
+[ext_resource type="Script" path="res://scripts/machines/game_machine.gd" id="5_let06"]
+[ext_resource type="Script" path="res://scripts/machines/game_state_setting.gd" id="6_ap1p8"]
+[ext_resource type="Script" path="res://scripts/scene/scene.gd" id="7_ydmty"]
+[ext_resource type="Script" path="res://scripts/scene/astar.gd" id="8_2xpqs"]
+[ext_resource type="Script" path="res://scripts/team/base_team.gd" id="8_ug7uk"]
+
+[node name="game" type="Node"]
+script = ExtResource("1_4yx5u")
+
+[node name="game_machine" type="Node" parent="."]
+script = ExtResource("5_let06")
+
+[node name="game_state_init" type="Node" parent="game_machine"]
+script = ExtResource("3_3p5t0")
+
+[node name="game_state_main" type="Node" parent="game_machine"]
+script = ExtResource("4_5dts2")
+
+[node name="game_state_battle" type="Node" parent="game_machine"]
+script = ExtResource("5_4obmt")
+
+[node name="game_state_setting" type="Node" parent="game_machine"]
+script = ExtResource("6_ap1p8")
+
+[node name="controller" type="Node" parent="."]
+
+[node name="player_controller" type="Node" parent="controller"]
+script = ExtResource("3_n0au1")
+
+[node name="drag_handler" type="Node" parent="controller/player_controller"]
+script = ExtResource("4_6xqlb")
+
+[node name="camera_controller" type="Camera2D" parent="controller"]
+script = ExtResource("5_curbj")
+
+[node name="scene" type="Node2D" parent="."]
+script = ExtResource("7_ydmty")
+
+[node name="astar" type="Node" parent="scene"]
+script = ExtResource("8_2xpqs")
+
+[node name="maps" type="Node2D" parent="scene"]
+
+[node name="map_ground" type="TileMap" parent="scene/maps"]
+format = 2
+
+[node name="map_pattern" type="TileMap" parent="scene/maps"]
+format = 2
+
+[node name="map_area" type="TileMap" parent="scene/maps"]
+format = 2
+
+[node name="map_building" type="TileMap" parent="scene/maps"]
+format = 2
+
+[node name="teams" type="Node" parent="."]
+
+[node name="player_team" type="Node" parent="teams"]
+script = ExtResource("8_ug7uk")
+
+[node name="enemy_team" type="Node" parent="teams"]
+script = ExtResource("8_ug7uk")

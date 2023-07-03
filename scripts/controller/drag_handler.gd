@@ -7,7 +7,8 @@ var drag_items:Array[drag_item] = []
 
 func regiest(item:drag_item):
 	item.signal_drag_item.connect(_on_drag_item)
-
+func unregiest(item:drag_item):
+	item.signal_drag_item.disconnect(_on_drag_item)
 	
 func _on_drag_item(item:drag_item):
 	if drag_items.size()>0 :

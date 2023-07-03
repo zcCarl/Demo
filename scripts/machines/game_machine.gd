@@ -1,9 +1,10 @@
-extends Node
+extends state_machine
 
+class_name game_machine
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	game.setup()
-#	ui_root.open()
+	
+	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

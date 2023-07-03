@@ -13,7 +13,6 @@ var is_battle = false
 var is_turn = false
 
 func _init():
-	name = "team1"
 	pass
 
 func setup(team_tag):

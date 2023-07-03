@@ -1,11 +1,15 @@
-[gd_scene load_steps=41 format=3 uid="uid://dcdeeoinfdusa"]
+[gd_scene load_steps=45 format=3 uid="uid://dcdeeoinfdusa"]
 
 [ext_resource type="Script" path="res://scripts/characters/character.gd" id="1_akxky"]
 [ext_resource type="Texture2D" uid="uid://b1clsaj8kygb1" path="res://art/Solaria Demo Pack Update 03/16x16/Sprites/Hero 01.png" id="2_aleid"]
+[ext_resource type="Script" path="res://scripts/characters/machine/character/normal/character_normal_machine.gd" id="3_ugth8"]
+[ext_resource type="Script" path="res://scripts/characters/machine/character/normal/character_normal_state_idle.gd" id="4_4ur5m"]
+[ext_resource type="Script" path="res://scripts/characters/machine/character/battle/character_battle_machine.gd" id="4_gbvw4"]
+[ext_resource type="Script" path="res://scripts/characters/machine/character/normal/character_normal_state_walk.gd" id="5_8gjst"]
+[ext_resource type="Script" path="res://scripts/characters/machine/character/battle/character_battle_state_ready.gd" id="5_mf546"]
 [ext_resource type="Script" path="res://scripts/controller/drag_item.gd" id="5_x0fi4"]
-[ext_resource type="Script" path="res://scripts/machines/character_machine_normal.gd" id="6_jbqw2"]
-[ext_resource type="PackedScene" uid="uid://la2dwuux1qmu" path="res://scene/hud/character_hud.tscn" id="6_lkc3j"]
-[ext_resource type="Script" path="res://scripts/machines/character_machine_battle.gd" id="7_k4874"]
+[ext_resource type="Script" path="res://scripts/characters/machine/character/battle/character_battle_state_action.gd" id="6_nsqa7"]
+[ext_resource type="Script" path="res://scripts/characters/machine/character/battle/character_battle_state_over.gd" id="7_ueqya"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d6uxn"]
 atlas = ExtResource("2_aleid")
@@ -292,18 +296,29 @@ frame_progress = 0.932241
 [node name="animation" type="AnimationPlayer" parent="."]
 
 [node name="character_machine_normal" type="Node" parent="."]
-script = ExtResource("6_jbqw2")
+script = ExtResource("3_ugth8")
+
+[node name="character_normal_state_idle" type="Node" parent="character_machine_normal"]
+script = ExtResource("4_4ur5m")
+
+[node name="character_normal_state_walk" type="Node" parent="character_machine_normal"]
+script = ExtResource("5_8gjst")
 
 [node name="character_machine_battle" type="Node" parent="."]
-script = ExtResource("7_k4874")
+script = ExtResource("4_gbvw4")
+
+[node name="character_battle_state_ready" type="Node" parent="character_machine_battle"]
+script = ExtResource("5_mf546")
+
+[node name="character_battle_state_action" type="Node" parent="character_machine_battle"]
+script = ExtResource("6_nsqa7")
+
+[node name="character_battle_state_over" type="Node" parent="character_machine_battle"]
+script = ExtResource("7_ueqya")
 
 [node name="drag_item" type="Area2D" parent="."]
-visible = false
 script = ExtResource("5_x0fi4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="drag_item"]
 shape = SubResource("RectangleShape2D_bkrlt")
 debug_color = Color(0, 0.6, 0.701961, 1)
-
-[node name="character_hud" parent="." instance=ExtResource("6_lkc3j")]
-anchors_preset = 8

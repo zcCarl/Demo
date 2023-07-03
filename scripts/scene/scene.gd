@@ -1,5 +1,6 @@
 extends Node2D
 class_name scene
+signal character_move_grid(c:character)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	auto_road.setup($ground)

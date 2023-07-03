@@ -1,9 +1,7 @@
-[gd_scene load_steps=39 format=3 uid="uid://brene41e2y81s"]
+[gd_scene load_steps=37 format=3 uid="uid://brene41e2y81s"]
 
 [ext_resource type="Script" path="res://scripts/characters/monster.gd" id="1_1n3c3"]
 [ext_resource type="Texture2D" uid="uid://dclqtvc085sow" path="res://art/Solaria Demo Pack Update 03/16x16/Sprites/Slime 01.png" id="2_raqsm"]
-[ext_resource type="Script" path="res://scripts/machines/character_machine_normal.gd" id="3_wuygq"]
-[ext_resource type="Script" path="res://scripts/machines/character_machine_battle.gd" id="4_u0g1e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vuawj"]
 atlas = ExtResource("2_raqsm")
@@ -292,9 +290,3 @@ position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_feqtj")
 
 [node name="animation" type="AnimationPlayer" parent="."]
-
-[node name="character_machine_normal" type="Node" parent="."]
-script = ExtResource("3_wuygq")
-
-[node name="character_machine_battle" type="Node" parent="."]
-script = ExtResource("4_u0g1e")

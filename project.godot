@@ -16,7 +16,7 @@ cmd_path="ee"
 [application]
 
 config/name="Demo2"
-run/main_scene="res://scene/main.tscn"
+run/main_scene="res://scene/game.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -25,9 +25,6 @@ config/icon="res://icon.svg"
 Settings="*res://settings/dist/settings.gd"
 Enum="*res://scripts/enum.gd"
 ui_root="*res://scene/ui_root.tscn"
-auto_road="*res://scripts/scene/auto_road.gd"
-game="*res://scripts/game.gd"
-main="*res://scripts/main.gd"
 
 [display]
 

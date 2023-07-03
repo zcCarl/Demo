@@ -16,16 +16,20 @@ var target_point = null
 
 var reseting = false
 
-	
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	game._player_controller._drag_handler.regiest(self)
+	
 	pass # Replace with function body.
+
 
 func set_enable(m_enable):
 	enable = m_enable
-	
+func on_enable():
+	player_controller._drag_handler.regiest(self)
+
+func on_disable():
+	player_controller._drag_handler.unregiest(self)
 	
 func _unhandled_input(event):
 	if enable and event is InputEventMouseButton:
