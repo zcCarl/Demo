@@ -8,7 +8,7 @@ func _ready():
 
 func handle_movement_point_input(_delta):
 	if path.size()==0 and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		path = auto_road.get_auto_path(global_position,get_global_mouse_position())
+		path = Game._scene._astar.get_auto_path(global_position,get_global_mouse_position())
 
 func handle_movement_cancel_input(_delta):
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):

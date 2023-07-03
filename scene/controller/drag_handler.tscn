@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://e5fbfxye0254"]
-
-[ext_resource type="Script" path="res://scripts/controller/drag_handler.gd" id="1_ao1pu"]
-[ext_resource type="Resource" uid="uid://d2k7gplla081r" path="res://resources/message_event.drag_item_event.tres" id="2_cuugq"]
-
-[node name="drag_handler" type="Node2D"]
-script = ExtResource("1_ao1pu")
-signal_drag_item = ExtResource("2_cuugq")

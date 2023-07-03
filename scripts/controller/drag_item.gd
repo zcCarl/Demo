@@ -26,10 +26,10 @@ func _ready():
 func set_enable(m_enable):
 	enable = m_enable
 func on_enable():
-	player_controller._drag_handler.regiest(self)
+	Game._player_controller._drag_handler.regiest(self)
 
 func on_disable():
-	player_controller._drag_handler.unregiest(self)
+	Game._player_controller._drag_handler.unregiest(self)
 	
 func _unhandled_input(event):
 	if enable and event is InputEventMouseButton:

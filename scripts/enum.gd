@@ -6,6 +6,20 @@ enum skill_target_type{
 	firends_except_me = 3,
 	all = 4,
 }
+
+enum ui_layer{
+	game_root,
+	fullscreen_root,
+	popup_root,
+	tips_root,
+}
+
+enum main_state{
+	main_init,
+	main_ready,
+	main_save
+}
+
 enum character_normal_state{ 
 	character_normal_state_idle,
 	character_normal_state_walk

@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://dlqsoqp4ly4pr"]
-
-[ext_resource type="Script" path="res://scripts/controller/player_controller.gd" id="1_rar7o"]
-[ext_resource type="PackedScene" uid="uid://e5fbfxye0254" path="res://scene/controller/drag_handler.tscn" id="2_8gkyu"]
-
-[node name="player_controller" type="Node2D"]
-script = ExtResource("1_rar7o")
-
-[node name="drag_handler" parent="." instance=ExtResource("2_8gkyu")]

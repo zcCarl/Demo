@@ -1,6 +1,6 @@
-extends Node2D
-class_name game
+extends Node
 @onready var _scene : scene = $"scene"
+@onready var _player_controller:player_controller = $"controller/player_controller"
 var _player_team : base_team
 var _ememy_team : base_team
 # Called when the node enters the scene tree for the first time.

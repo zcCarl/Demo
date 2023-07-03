@@ -26,9 +26,9 @@ func get_character(index:int):
 	return members[index]
 	
 func join_team(c:base_character):
+	add_child(c)
 	var index = members.size()
 	members[index] = c
-	add_child(c)
 	c.on_join_team(self,index)
 	if !leader:
 		leader = c

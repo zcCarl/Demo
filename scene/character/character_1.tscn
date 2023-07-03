@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" path="res://scripts/characters/character.gd" id="1_akxky"]
 [ext_resource type="Texture2D" uid="uid://b1clsaj8kygb1" path="res://art/Solaria Demo Pack Update 03/16x16/Sprites/Hero 01.png" id="2_aleid"]
-[ext_resource type="Script" path="res://scripts/characters/machine/character/normal/character_normal_machine.gd" id="3_ugth8"]
-[ext_resource type="Script" path="res://scripts/characters/machine/character/normal/character_normal_state_idle.gd" id="4_4ur5m"]
-[ext_resource type="Script" path="res://scripts/characters/machine/character/battle/character_battle_machine.gd" id="4_gbvw4"]
-[ext_resource type="Script" path="res://scripts/characters/machine/character/normal/character_normal_state_walk.gd" id="5_8gjst"]
-[ext_resource type="Script" path="res://scripts/characters/machine/character/battle/character_battle_state_ready.gd" id="5_mf546"]
+[ext_resource type="Script" path="res://scripts/machines/character/player/normal/character_normal_machine.gd" id="3_ugth8"]
+[ext_resource type="Script" path="res://scripts/machines/character/player/normal/character_normal_state_idle.gd" id="4_4ur5m"]
+[ext_resource type="Script" path="res://scripts/machines/character/player/battle/character_battle_machine.gd" id="4_gbvw4"]
+[ext_resource type="Script" path="res://scripts/machines/character/player/normal/character_normal_state_walk.gd" id="5_8gjst"]
+[ext_resource type="Script" path="res://scripts/machines/character/player/battle/character_battle_state_ready.gd" id="5_mf546"]
 [ext_resource type="Script" path="res://scripts/controller/drag_item.gd" id="5_x0fi4"]
-[ext_resource type="Script" path="res://scripts/characters/machine/character/battle/character_battle_state_action.gd" id="6_nsqa7"]
-[ext_resource type="Script" path="res://scripts/characters/machine/character/battle/character_battle_state_over.gd" id="7_ueqya"]
+[ext_resource type="Script" path="res://scripts/machines/character/player/battle/character_battle_state_action.gd" id="6_nsqa7"]
+[ext_resource type="Script" path="res://scripts/machines/character/player/battle/character_battle_state_over.gd" id="7_ueqya"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d6uxn"]
 atlas = ExtResource("2_aleid")

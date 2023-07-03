@@ -1,4 +1,5 @@
-extends Node2D
+extends Node
+class_name astar
 var tile_map:TileMap 
 var astar_node : AStar2D 
 var map = {} 
