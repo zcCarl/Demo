@@ -26,7 +26,6 @@ Settings="*res://settings/dist/settings.gd"
 Enum="*res://scripts/enum.gd"
 ui_root="*res://scene/ui_root.tscn"
 Game="*res://scene/game.tscn"
-main="*res://scripts/main.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 
 [display]
