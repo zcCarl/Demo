@@ -6,7 +6,15 @@ Nathan: Here are some choices.
 	Nathan: You picked the first one.
 - Second one
 	Nathan: You picked the second one.
-- Start again => this_is_a_node_title
+- Start again => other
 - End the conversation => END
 Nathan: For more information see the online documentation.
 => END
+
+~ other 
+Nathan: Here are some choices2.
+- First one
+	Nathan: You picked the first one2.
+- Second one
+	Nathan: You picked the second one2.
+- Start again => this_is_a_node_title

@@ -1,15 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://ckaoukv5ywi14"]
+[gd_scene load_steps=4 format=3 uid="uid://c4i6fqcfakktn"]
 
-[ext_resource type="Script" path="res://scripts/ui/ui_main.gd" id="1_bbcm3"]
+[ext_resource type="Script" path="res://scripts/ui/ui_main_ready.gd" id="1_cokr0"]
+[ext_resource type="Material" uid="uid://dvkskq4hyvll4" path="res://shaders/new_shader_material.tres" id="2_gu1kw"]
+[ext_resource type="Texture2D" uid="uid://cooq4frig5sqb" path="res://icon.svg" id="3_62bcu"]
 
-[node name="ui_main" type="Control"]
+[node name="ui_main_ready" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 1.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_bbcm3")
+script = ExtResource("1_cokr0")
 
 [node name="bg" type="Panel" parent="."]
 layout_mode = 1
@@ -19,20 +23,38 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="."]
-custom_minimum_size = Vector2(200, 50)
+[node name="TextureRect" type="TextureRect" parent="bg"]
+material = ExtResource("2_gu1kw")
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = -30.0
-offset_right = 100.0
-offset_bottom = 20.0
+offset_left = -64.0
+offset_top = 100.0
+offset_right = 64.0
+offset_bottom = 228.0
+grow_horizontal = 2
+texture = ExtResource("3_62bcu")
 
-[node name="Label" type="Label" parent="Button"]
+[node name="v" type="VBoxContainer" parent="bg"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -349.0
+offset_right = 100.0
+offset_bottom = -133.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="start" type="Button" parent="bg/v"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="bg/v/start"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -43,15 +65,26 @@ text = "开始"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button2" type="Button" parent="."]
+[node name="continue" type="Button" parent="bg/v"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
-offset_left = 476.0
-offset_top = 362.0
-offset_right = 676.0
-offset_bottom = 412.0
 
-[node name="Label" type="Label" parent="Button2"]
+[node name="Label" type="Label" parent="bg/v/continue"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "继续"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="save" type="Button" parent="bg/v"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="bg/v/save"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -62,15 +95,11 @@ text = "存档"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button3" type="Button" parent="."]
+[node name="exit" type="Button" parent="bg/v"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
-offset_left = 476.0
-offset_top = 428.0
-offset_right = 676.0
-offset_bottom = 478.0
 
-[node name="Label" type="Label" parent="Button3"]
+[node name="Label" type="Label" parent="bg/v/exit"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

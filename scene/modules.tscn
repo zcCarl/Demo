@@ -1,0 +1,35 @@
+[gd_scene load_steps=8 format=3 uid="uid://dye3eti8pmqkl"]
+
+[ext_resource type="Script" path="res://scripts/modules/base/modules.gd" id="1_l0yhf"]
+[ext_resource type="Script" path="res://scripts/modules/module_account.gd" id="2_hx03g"]
+[ext_resource type="Script" path="res://scripts/modules/module_option.gd" id="2_psmq2"]
+[ext_resource type="Script" path="res://scripts/modules/module_save.gd" id="3_8loe5"]
+[ext_resource type="Script" path="res://scripts/modules/module_player.gd" id="4_2qs3b"]
+[ext_resource type="Script" path="res://scripts/modules/module_world.gd" id="5_86wpw"]
+[ext_resource type="Script" path="res://scripts/modules/module_user.gd" id="7_pekwc"]
+
+[node name="modules" type="Node"]
+script = ExtResource("1_l0yhf")
+
+[node name="module_option" type="Node2D" parent="."]
+visible = false
+script = ExtResource("2_psmq2")
+
+[node name="module_account" type="Node2D" parent="."]
+visible = false
+script = ExtResource("2_hx03g")
+
+[node name="module_save" type="Node2D" parent="."]
+script = ExtResource("3_8loe5")
+
+[node name="module_player" type="Node2D" parent="."]
+visible = false
+script = ExtResource("4_2qs3b")
+
+[node name="module_world" type="Node2D" parent="."]
+visible = false
+script = ExtResource("5_86wpw")
+
+[node name="module_user" type="Node2D" parent="."]
+visible = false
+script = ExtResource("7_pekwc")

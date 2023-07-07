@@ -1,42 +1,57 @@
 extends Node
 
-var thread
-var mutex
-var semaphore
+class load_async_res:
+	signal completed
+	signal progress
+var thread:Thread
+var mutex:Mutex
+var semaphore:Semaphore
 var exit_thread = false
 
 var time_max = 100 # Milliseconds.
 
 var queue = []
 var progress = {}
+var loading = {}
+
+func _enter_tree():
+	start()
 
 func _lock(_caller):
+	#print("_lock: "+ _caller + Time.get_datetime_string_from_system())
 	mutex.lock()
 
 
 func _unlock(_caller):
+	
+	#print("_unlock: " + _caller + Time.get_datetime_string_from_system())
 	mutex.unlock()
 
 
 func _post(_caller):
+	
+	#print("_post: " + _caller + Time.get_datetime_string_from_system())
 	semaphore.post()
 
 
 func _wait(_caller):
+	
+	#print("_wait: " + _caller + Time.get_datetime_string_from_system())
 	semaphore.wait()
 
 
 func queue_resource(path, p_in_front = false):
 	_lock("queue_resource")
-	var statu =	ResourceLoader.load_threaded_get_status(path,progress)
+	var statu =	ResourceLoader.load_threaded_get_status(path)
 	if statu == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+		_post("queue_resource")
 		_unlock("queue_resource")
-		return
-	elif statu == ResourceLoader.THREAD_LOAD_LOADED:
-		var res = ResourceLoader.load_threaded_get(path)
-	elif statu == ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
+		return loading[path]
+	else:
 		var ok = ResourceLoader.load_threaded_request(path)
+		assert(ok == 0, "ResourceLoader.load_threaded_request error:"+str(ok))
 		if ok == 0 :
+			loading[path] = load_async_res.new()
 			progress[path] = []
 			if p_in_front:
 				queue.insert(0, path)
@@ -44,13 +59,14 @@ func queue_resource(path, p_in_front = false):
 				queue.push_back(path)
 			_post("queue_resource")
 			_unlock("queue_resource")
-		else:
-			assert(false, "ResourceLoader.load_threaded_request error:"+ok)
-
-
+			return loading[path]
+	_post("queue_resource")
+	_unlock("queue_resource")
+	return null
+	
 func cancel_resource(path):
 	_lock("cancel_resource")
-	var statu =	ResourceLoader.load_threaded_get_status(path,progress)
+	var statu =	ResourceLoader.load_threaded_get_status(path)
 	if statu == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
 		queue.erase(path)
 	_unlock("cancel_resource")
@@ -59,7 +75,7 @@ func cancel_resource(path):
 func get_progress(path):
 	_lock("get_progress")
 	var ret = -1
-	var statu =	ResourceLoader.load_threaded_get_status(path,progress)
+	var statu =	ResourceLoader.load_threaded_get_status(path)
 	if statu == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
 		if progress[path]:
 			ret = progress[path][0]
@@ -72,7 +88,7 @@ func get_progress(path):
 func is_ready(path):
 	var ret
 	_lock("is_ready")
-	var statu =	ResourceLoader.load_threaded_get_status(path,progress)
+	var statu =	ResourceLoader.load_threaded_get_status(path)
 	if statu == ResourceLoader.THREAD_LOAD_LOADED:
 		ret = true
 	else:
@@ -97,7 +113,7 @@ func _wait_for_resource(path):
 
 func get_resource(path):
 	_lock("get_resource")
-	var statu =	ResourceLoader.load_threaded_get_status(path,progress)
+	var statu =	ResourceLoader.load_threaded_get_status(path)
 	if statu == ResourceLoader.THREAD_LOAD_LOADED:
 		var res = ResourceLoader.load_threaded_get(path)
 		_unlock("return")
@@ -117,24 +133,26 @@ func get_resource(path):
 func thread_process():
 	_wait("thread_process")
 	_lock("process")
-
 	while queue.size() > 0:
-		var res = queue[0]
-		_unlock("process_poll")
-		var ret = res.poll()
+		var path = queue[0]
+		_unlock("process_statu")
+		var statu = ResourceLoader.load_threaded_get_status(path,progress[path])
 		_lock("process_check_queue")
-
-		if ret == ERR_FILE_EOF || ret != OK:
-			var path = res.get_meta("path")
-			if path in pending: # Else, it was already retrieved.
-				pending[res.get_meta("path")] = res.get_resource()
-			# Something might have been put at the front of the queue while
-			# we polled, so use erase instead of remove.
-			queue.erase(res)
+		if statu == ResourceLoader.THREAD_LOAD_LOADED:
+			var res = ResourceLoader.load_threaded_get(path)
+			loading[path].completed.emit(res)
+			loading.erase(path)
+			queue.erase(path)
+		elif statu == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+			loading[path].progress.emit(progress[path][0])
+		elif statu == ResourceLoader.THREAD_LOAD_FAILED:
+			loading.erase(path)
+			queue.erase(path)
+			pass
 	_unlock("process")
 
 
-func thread_func(_u):
+func thread_func():
 	while true:
 		mutex.lock()
 		var should_exit = exit_thread # Protect with Mutex.
@@ -149,7 +167,7 @@ func start():
 	mutex = Mutex.new()
 	semaphore = Semaphore.new()
 	thread = Thread.new()
-	thread.start(self, "thread_func", 0)
+	thread.start(thread_func)
 
 # Triggered by calling "get_tree().quit()".
 func _exit_tree():

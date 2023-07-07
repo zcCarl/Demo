@@ -10,9 +10,11 @@ func on_disable():
 	pass
 
 func state_enter(last_state:state):
+	print("enter state: "+name)
 	pass
 	
 func state_exit( next_state:state):
+	print("exit state: "+name)
 	pass
 
 func state_logic(delta):

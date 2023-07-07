@@ -17,7 +17,8 @@ enum ui_layer{
 enum main_state{
 	main_init,
 	main_ready,
-	main_save
+	main_save,
+	main_game,
 }
 
 enum character_normal_state{ 

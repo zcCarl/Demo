@@ -15,21 +15,28 @@ cmd_path="ee"
 
 [application]
 
-config/name="Demo2"
+config/name="Nano"
 run/main_scene="res://scene/main.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
+boot_splash/bg_color=Color(1, 0.141176, 0.141176, 1)
 config/icon="res://icon.svg"
 
 [autoload]
 
+proto="*res://scripts/modules/base/proto.gd"
 Settings="*res://settings/dist/settings.gd"
 Enum="*res://scripts/enum.gd"
-ui_root="*res://scene/ui_root.tscn"
+ui_config="*res://scripts/ui/base/ui_config.gd"
+Signals="*res://scripts/signal/signals.gd"
+modules="*res://scene/modules.tscn"
 Game="*res://scene/game.tscn"
+ui_root="*res://scene/ui_root.tscn"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
+ResourceQueue="*res://scripts/resource_queue.gd"
 
 [display]
 
+window/stretch/mode="viewport"
 window/handheld/orientation=1
 
 [dotnet]
@@ -43,7 +50,7 @@ version_control/autoload_on_startup=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/autoload/plugin.cfg", "res://addons/GDExcelExporter/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/GDExcelExporter/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg", "res://addons/protobuf/plugin.cfg")
 
 [input]
 

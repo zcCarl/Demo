@@ -1,0 +1,11 @@
+syntax = "proto3";
+message module_save_structs {
+
+	message module_save_struct {
+		int32 character = 1;
+		string save_time = 2;
+		int32 save_map = 3;
+		string save_character_pos = 4;
+	}
+	map<int32, module_save_struct> save_data = 1;
+}

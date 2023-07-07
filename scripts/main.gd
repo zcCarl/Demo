@@ -3,6 +3,11 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	print("_ready")
+	$main_machine.set_enable(true)
+#	var _ui_main_ready:ui_main_ready = await ui_root.open("res://scene/ui/ui_main_ready.tscn",Enum.ui_layer.fullscreen_root)
+#	Signals.on_ui_main_ready_start.connect(_ui_main_ready.close)
 	pass # Replace with function body.
 
 

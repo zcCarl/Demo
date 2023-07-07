@@ -1,0 +1,519 @@
+[gd_scene load_steps=4 format=3 uid="uid://cuhiq46av1n3l"]
+
+[ext_resource type="Script" path="res://scripts/ui/ui_main_save.gd" id="1_8fn7w"]
+[ext_resource type="Texture2D" uid="uid://one13uyl0imd" path="res://art/像素UI包pixeluipack/9-Slice/space.png" id="2_jnuh3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_e6vsn"]
+font_size = 22
+
+[node name="ui_main_save" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8fn7w")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_jnuh3")
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="pad" type="NinePatchRect" parent="."]
+custom_minimum_size = Vector2(600, 570)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -300.0
+offset_right = 300.0
+offset_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_jnuh3")
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="vc" type="VBoxContainer" parent="pad"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="m1" type="Control" parent="pad/vc"]
+custom_minimum_size = Vector2(2.08165e-12, 190)
+layout_mode = 2
+
+[node name="save" type="NinePatchRect" parent="pad/vc/m1"]
+custom_minimum_size = Vector2(500, 180)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_jnuh3")
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="has" type="HSplitContainer" parent="pad/vc/m1/save"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offset = -40
+
+[node name="mc" type="MarginContainer" parent="pad/vc/m1/save/has"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="character_texture" type="TextureRect" parent="pad/vc/m1/save/has/mc"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="vc" type="VBoxContainer" parent="pad/vc/m1/save/has"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+alignment = 1
+
+[node name="group1" type="HSplitContainer" parent="pad/vc/m1/save/has/vc"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="save_data_title" type="Label" parent="pad/vc/m1/save/has/vc/group1"]
+layout_mode = 2
+text = "角色："
+
+[node name="save_data_label" type="Label" parent="pad/vc/m1/save/has/vc/group1"]
+custom_minimum_size = Vector2(220, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "11111111"
+autowrap_mode = 3
+
+[node name="group2" type="HSplitContainer" parent="pad/vc/m1/save/has/vc"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="save_data_title" type="Label" parent="pad/vc/m1/save/has/vc/group2"]
+layout_mode = 2
+text = "等级："
+
+[node name="save_data_label" type="Label" parent="pad/vc/m1/save/has/vc/group2"]
+custom_minimum_size = Vector2(220, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 0
+autowrap_mode = 3
+
+[node name="group3" type="HSplitContainer" parent="pad/vc/m1/save/has/vc"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="save_data_title" type="Label" parent="pad/vc/m1/save/has/vc/group3"]
+layout_mode = 2
+text = "地区："
+
+[node name="save_data_label" type="Label" parent="pad/vc/m1/save/has/vc/group3"]
+custom_minimum_size = Vector2(220, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 0
+autowrap_mode = 3
+
+[node name="group4" type="HSplitContainer" parent="pad/vc/m1/save/has/vc"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="save_data_title" type="Label" parent="pad/vc/m1/save/has/vc/group4"]
+layout_mode = 2
+text = "位置："
+
+[node name="save_data_label" type="Label" parent="pad/vc/m1/save/has/vc/group4"]
+custom_minimum_size = Vector2(220, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 0
+autowrap_mode = 3
+
+[node name="group5" type="HSplitContainer" parent="pad/vc/m1/save/has/vc"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="load_button" type="Button" parent="pad/vc/m1/save/has/vc/group5"]
+custom_minimum_size = Vector2(140, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "读档"
+
+[node name="delete_button" type="Button" parent="pad/vc/m1/save/has/vc/group5"]
+custom_minimum_size = Vector2(140, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "删除"
+
+[node name="none" type="Control" parent="pad/vc/m1/save"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="none_label" type="Label" parent="pad/vc/m1/save/none"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "无"
+label_settings = SubResource("LabelSettings_e6vsn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="create_save" type="Button" parent="pad/vc/m1/save/none"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[node name="m2" type="Control" parent="pad/vc"]
+custom_minimum_size = Vector2(2.08165e-12, 190)
+layout_mode = 2
+
+[node name="save" type="NinePatchRect" parent="pad/vc/m2"]
+custom_minimum_size = Vector2(500, 180)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_jnuh3")
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="has" type="HSplitContainer" parent="pad/vc/m2/save"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offset = -40
+
+[node name="mc" type="MarginContainer" parent="pad/vc/m2/save/has"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="character_texture" type="TextureRect" parent="pad/vc/m2/save/has/mc"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="vc" type="VBoxContainer" parent="pad/vc/m2/save/has"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+alignment = 1
+
+[node name="group1" type="HSplitContainer" parent="pad/vc/m2/save/has/vc"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="save_data_title" type="Label" parent="pad/vc/m2/save/has/vc/group1"]
+layout_mode = 2
+text = "角色："
+
+[node name="save_data_label" type="Label" parent="pad/vc/m2/save/has/vc/group1"]
+custom_minimum_size = Vector2(220, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "11111111"
+autowrap_mode = 3
+
+[node name="group2" type="HSplitContainer" parent="pad/vc/m2/save/has/vc"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="save_data_title" type="Label" parent="pad/vc/m2/save/has/vc/group2"]
+layout_mode = 2
+text = "等级："
+
+[node name="save_data_label" type="Label" parent="pad/vc/m2/save/has/vc/group2"]
+custom_minimum_size = Vector2(220, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 0
+autowrap_mode = 3
+
+[node name="group3" type="HSplitContainer" parent="pad/vc/m2/save/has/vc"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="save_data_title" type="Label" parent="pad/vc/m2/save/has/vc/group3"]
+layout_mode = 2
+text = "地区："
+
+[node name="save_data_label" type="Label" parent="pad/vc/m2/save/has/vc/group3"]
+custom_minimum_size = Vector2(220, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 0
+autowrap_mode = 3
+
+[node name="group4" type="HSplitContainer" parent="pad/vc/m2/save/has/vc"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="save_data_title" type="Label" parent="pad/vc/m2/save/has/vc/group4"]
+layout_mode = 2
+text = "位置："
+
+[node name="save_data_label" type="Label" parent="pad/vc/m2/save/has/vc/group4"]
+custom_minimum_size = Vector2(220, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 0
+autowrap_mode = 3
+
+[node name="group5" type="HSplitContainer" parent="pad/vc/m2/save/has/vc"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="load_button" type="Button" parent="pad/vc/m2/save/has/vc/group5"]
+custom_minimum_size = Vector2(140, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "读档"
+
+[node name="delete_button" type="Button" parent="pad/vc/m2/save/has/vc/group5"]
+custom_minimum_size = Vector2(140, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "删除"
+
+[node name="none" type="Control" parent="pad/vc/m2/save"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="none_label" type="Label" parent="pad/vc/m2/save/none"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "无"
+label_settings = SubResource("LabelSettings_e6vsn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="create_save" type="Button" parent="pad/vc/m2/save/none"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[node name="m3" type="Control" parent="pad/vc"]
+custom_minimum_size = Vector2(2.08165e-12, 190)
+layout_mode = 2
+
+[node name="save" type="NinePatchRect" parent="pad/vc/m3"]
+custom_minimum_size = Vector2(500, 180)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_jnuh3")
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="has" type="HSplitContainer" parent="pad/vc/m3/save"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offset = -40
+
+[node name="mc" type="MarginContainer" parent="pad/vc/m3/save/has"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="character_texture" type="TextureRect" parent="pad/vc/m3/save/has/mc"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="vc" type="VBoxContainer" parent="pad/vc/m3/save/has"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+alignment = 1
+
+[node name="group1" type="HSplitContainer" parent="pad/vc/m3/save/has/vc"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="save_data_title" type="Label" parent="pad/vc/m3/save/has/vc/group1"]
+layout_mode = 2
+text = "角色："
+
+[node name="save_data_label" type="Label" parent="pad/vc/m3/save/has/vc/group1"]
+custom_minimum_size = Vector2(220, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "11111111"
+autowrap_mode = 3
+
+[node name="group2" type="HSplitContainer" parent="pad/vc/m3/save/has/vc"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="save_data_title" type="Label" parent="pad/vc/m3/save/has/vc/group2"]
+layout_mode = 2
+text = "等级："
+
+[node name="save_data_label" type="Label" parent="pad/vc/m3/save/has/vc/group2"]
+custom_minimum_size = Vector2(220, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 0
+autowrap_mode = 3
+
+[node name="group3" type="HSplitContainer" parent="pad/vc/m3/save/has/vc"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="save_data_title" type="Label" parent="pad/vc/m3/save/has/vc/group3"]
+layout_mode = 2
+text = "地区："
+
+[node name="save_data_label" type="Label" parent="pad/vc/m3/save/has/vc/group3"]
+custom_minimum_size = Vector2(220, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 0
+autowrap_mode = 3
+
+[node name="group4" type="HSplitContainer" parent="pad/vc/m3/save/has/vc"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="save_data_title" type="Label" parent="pad/vc/m3/save/has/vc/group4"]
+layout_mode = 2
+text = "位置："
+
+[node name="save_data_label" type="Label" parent="pad/vc/m3/save/has/vc/group4"]
+custom_minimum_size = Vector2(220, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 0
+autowrap_mode = 3
+
+[node name="group5" type="HSplitContainer" parent="pad/vc/m3/save/has/vc"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="load_button" type="Button" parent="pad/vc/m3/save/has/vc/group5"]
+custom_minimum_size = Vector2(140, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "读档"
+
+[node name="delete_button" type="Button" parent="pad/vc/m3/save/has/vc/group5"]
+custom_minimum_size = Vector2(140, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "删除"
+
+[node name="none" type="Control" parent="pad/vc/m3/save"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="none_label" type="Label" parent="pad/vc/m3/save/none"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "无"
+label_settings = SubResource("LabelSettings_e6vsn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="create_save" type="Button" parent="pad/vc/m3/save/none"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true

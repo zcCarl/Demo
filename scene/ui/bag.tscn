@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://duug2k23l21jo"]
+
+[node name="Panel" type="Panel"]
+offset_right = 219.0
+offset_bottom = 270.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+
+[node name="Panel" type="Panel" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.15
+
+[node name="Label" type="Label" parent="VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Title"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/ScrollContainer"]
+layout_mode = 2
+columns = 5
+
+[node name="Panel" type="Panel" parent="VBoxContainer/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 2
+
+[node name="Panel2" type="Panel" parent="VBoxContainer/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 2
+
+[node name="Panel3" type="Panel" parent="VBoxContainer/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 2
+
+[node name="Panel4" type="Panel" parent="VBoxContainer/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 2
+
+[node name="Panel5" type="Panel" parent="VBoxContainer/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.06
+metadata/_edit_group_ = true

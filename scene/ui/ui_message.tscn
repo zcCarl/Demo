@@ -1,0 +1,110 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6qgbc5hulv0l"]
+
+[ext_resource type="Script" path="res://scripts/ui/ui_message.gd" id="1_j4dxe"]
+[ext_resource type="Texture2D" uid="uid://one13uyl0imd" path="res://art/像素UI包pixeluipack/9-Slice/space.png" id="2_n6a5q"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_d246i"]
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_u1ln2"]
+
+[node name="ui_message" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j4dxe")
+
+[node name="bg" type="Panel" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="pad" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -125.0
+offset_right = 200.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_n6a5q")
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="cancelBtn" type="Button" parent="pad"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -152.0
+offset_top = 170.0
+offset_right = -32.0
+offset_bottom = 200.0
+grow_horizontal = 2
+text = "取消"
+
+[node name="okBtn" type="Button" parent="pad"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 32.0
+offset_top = 170.0
+offset_right = 152.0
+offset_bottom = 200.0
+grow_horizontal = 2
+text = "确定"
+
+[node name="title" type="MarginContainer" parent="pad"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -137.5
+offset_top = 10.0
+offset_right = 137.5
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="titleLabel" type="Label" parent="pad/title"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "标题标题标题标题标题标题标题标题标题标题"
+label_settings = SubResource("LabelSettings_d246i")
+horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 3
+
+[node name="word" type="MarginContainer" parent="pad"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -175.0
+offset_top = 50.0
+offset_right = 175.0
+offset_bottom = 170.0
+grow_horizontal = 2
+
+[node name="wordLabel" type="Label" parent="pad/word"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "十佳设计师将断奶时间嗲基地沙地上几滴就爱大姐i撒娇扫地机阿迪决赛的十佳设计师将断奶时间嗲基地沙地上几滴就爱大姐i撒娇扫地机阿迪决"
+label_settings = SubResource("LabelSettings_u1ln2")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3

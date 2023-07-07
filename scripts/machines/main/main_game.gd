@@ -1,6 +1,5 @@
 extends state
 
-
 func state_enter(last_state):
 	pass
 	

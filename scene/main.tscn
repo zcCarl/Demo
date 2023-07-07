@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cxvx0f5dmkmfl"]
+[gd_scene load_steps=7 format=3 uid="uid://cxvx0f5dmkmfl"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_y3c78"]
 [ext_resource type="Script" path="res://scripts/machines/main/main_machine.gd" id="2_0u3nw"]
+[ext_resource type="Script" path="res://scripts/machines/main/main_init.gd" id="3_yl7gr"]
 [ext_resource type="Script" path="res://scripts/machines/main/main_ready.gd" id="4_wu08l"]
 [ext_resource type="Script" path="res://scripts/machines/main/main_game.gd" id="5_35sey"]
 [ext_resource type="Script" path="res://scripts/machines/main/main_save.gd" id="5_y5ucl"]
@@ -11,6 +12,9 @@ script = ExtResource("1_y3c78")
 
 [node name="main_machine" type="Node" parent="."]
 script = ExtResource("2_0u3nw")
+
+[node name="main_init" type="Node" parent="main_machine"]
+script = ExtResource("3_yl7gr")
 
 [node name="main_ready" type="Node" parent="main_machine"]
 script = ExtResource("4_wu08l")

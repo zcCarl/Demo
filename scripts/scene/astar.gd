@@ -21,7 +21,8 @@ func setup(tileMap:TileMap):
 		astar_node.add_point(point_index , vec)
 		for dir in direction:
 			var point_relative_index = calculate_point_index(vec+dir)
-			astar_node.connect_points(point_index,point_relative_index,true)
+			if astar_node.has_point(point_index) and astar_node.has_point(point_relative_index):
+				astar_node.connect_points(point_index,point_relative_index,true)
 		pass
 
 

@@ -7,6 +7,7 @@ func init_states():
 	states[Enum.main_state.main_init]=$main_init
 	states[Enum.main_state.main_ready]=$main_ready
 	states[Enum.main_state.main_save]=$main_save
+	states[Enum.main_state.main_game]=$main_game
 
 func on_enable():
 	super()
