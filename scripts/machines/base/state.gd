@@ -1,7 +1,10 @@
-extends Node
+extends RefCounted
 class_name state
 
-@onready var parent:state_machine = get_parent()
+var parent:state_machine
+
+func _init(_parent:state_machine):
+	parent = _parent
 
 func on_enable():
 	pass
@@ -10,11 +13,13 @@ func on_disable():
 	pass
 
 func state_enter(last_state:state):
-	print("enter state: "+name)
+	var script = get_script() as Script
+	print("enter state: " + script.resource_path)
 	pass
 	
 func state_exit( next_state:state):
-	print("exit state: "+name)
+	var script = get_script() as Script
+	print("exit state: " + script.resource_path)
 	pass
 
 func state_logic(delta):

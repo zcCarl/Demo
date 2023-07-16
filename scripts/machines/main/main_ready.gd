@@ -1,5 +1,5 @@
 extends state
-
+class_name main_ready
 
 func state_enter(last_state):
 	super.state_enter(last_state)
@@ -10,30 +10,31 @@ func state_enter(last_state):
 	ui_root.open(ui_config.ui_module_enum.ui_main_ready)
 	pass
 func start():
-	var last_index = modules._module_user.save_index
-	if last_index == -1:
+	var _module_save = modules.get_module(modules.module_enum.module_save) as module_save
+	if !_module_save.has_save():
 		modules.create_game(0)
-	#开始新的存档
-	parent.set_state(Enum.main_state.main_game)
+		#开始新的存档
+		parent.set_state(Enum.main_state.main_game)
 	
 func contunue():
+	var _module_save = modules.get_module(modules.module_enum.module_save) as module_save
+	if _module_save.has_save():
 	#继续上次的存档
-	var last_index = modules._module_user.save_index
-	if last_index > -1:
-		if modules._module_save.get_save(last_index):
+		var save_index = _module_save.get_struct().get_save_index()
+		if _module_save.get_save(save_index):
 			parent.set_state(Enum.main_state.main_game)
-	
+		else:
+			parent.set_state(Enum.main_state.main_save)
+		
 func save():
 	#进入存档界面
 	parent.set_state(Enum.main_state.main_save)
 	
 func exit():
 	#退出游戏
-	get_tree().get_root().propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
+	Engine.get_main_loop().quit()
+	
 
-func _notification(what):
-	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		get_tree().quit() # default behavior
 
 func state_exit(next_state):
 	super.state_exit(next_state)

@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://oebw23rsnbud"]
+
+[ext_resource type="Script" path="res://scripts/actions/action_area.gd" id="1_oo0hm"]
+[ext_resource type="Script" path="res://scripts/controller/drag_item.gd" id="2_aatev"]
+[ext_resource type="Texture2D" uid="uid://cooq4frig5sqb" path="res://icon.svg" id="2_g5rud"]
+[ext_resource type="Texture2D" uid="uid://cphsualei2kjp" path="res://White512x512.png" id="3_rgx2e"]
+
+[node name="action_area" type="Area2D"]
+y_sort_enabled = true
+monitorable = false
+script = ExtResource("1_oo0hm")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+z_index = 1
+y_sort_enabled = true
+texture = ExtResource("2_g5rud")
+texture_offset = Vector2(10, 10)
+texture_scale = Vector2(6, 6)
+polygon = PackedVector2Array(2.08165e-12, -4, 8, -8, 16, -4, 8, 2.08165e-12, 16, 4, 8, 8, -4.84426e-17, 4, -8, 8, -16, 4, -8, 2.08165e-12, -16, -4, -8, -8)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+z_index = 1
+y_sort_enabled = true
+polygon = PackedVector2Array(2.08165e-12, -4, 8, -8, 16, -4, 8, 2.08165e-12, 16, 4, 8, 8, -4.84426e-17, 4, -8, 8, -16, 4, -8, 2.08165e-12, -16, -4, -8, -8)
+
+[node name="drag_item" type="Area2D" parent="."]
+visible = false
+z_index = 1
+y_sort_enabled = true
+script = ExtResource("2_aatev")
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="drag_item"]
+z_index = 1
+y_sort_enabled = true
+polygon = PackedVector2Array(-4.84426e-17, 4, 8, 0, 4.84426e-17, -4, -8, 0)
+
+[node name="Polygon2D" type="Polygon2D" parent="drag_item/CollisionPolygon2D2"]
+z_index = 1
+y_sort_enabled = true
+color = Color(0.00392157, 0.227451, 1, 1)
+texture = ExtResource("3_rgx2e")
+polygon = PackedVector2Array(8, 2.08165e-12, 2.08165e-12, -4, -8, 2.08165e-12, 2.08165e-12, 4)

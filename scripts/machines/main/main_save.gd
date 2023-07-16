@@ -1,4 +1,5 @@
 extends state
+class_name main_save
 var ui_save:ui_main_save 
 
 func state_enter(last_state):
@@ -11,12 +12,16 @@ func state_enter(last_state):
 
 func create_save(save_index):
 	modules.create_game(save_index)
+	ui_save.set_save(save_index)
+	parent.set_state(Enum.main_state.main_game)
 	pass
 func load_save(save_index):
 	modules.load_game(save_index)
+	parent.set_state(Enum.main_state.main_game)
 	pass
 func delete_save(save_index):
 	modules.delete_game(save_index)
+	ui_save.set_save(save_index)
 	pass
 
 func state_exit(next_state):

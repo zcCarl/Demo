@@ -12,3 +12,11 @@ signal on_load_game_save(int)
 
 signal on_delete_game_save(int)
 
+signal on_action_center_area_open()
+
+signal on_character_path
+signal on_character_turn
+
+
+
+signal signal_drag_item(item:drag_item)

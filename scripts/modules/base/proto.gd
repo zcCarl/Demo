@@ -672,6 +672,11 @@ class module_save_structs:
 		service.func_ref = Callable(self, "add_empty_save_data")
 		data[_save_data.tag] = service
 		
+		_save_index = PBField.new("save_index", PB_DATA_TYPE.INT32, PB_RULE.OPTIONAL, 2, true, DEFAULT_VALUES_3[PB_DATA_TYPE.INT32])
+		service = PBServiceField.new()
+		service.field = _save_index
+		data[_save_index.tag] = service
+		
 	var data = {}
 	
 	var _save_data: PBField
@@ -686,6 +691,10 @@ class module_save_structs:
 		var element = module_save_structs.map_type_save_data.new()
 		_save_data.value.append(element)
 		return element
+	func remove_save_data(a_key):
+		for v in _save_data.value:
+			if v.get_key() == a_key:
+				_save_data.value.erase(v)
 	func add_save_data(a_key) -> module_save_structs.module_save_struct:
 		var idx = -1
 		for i in range(_save_data.value.size()):
@@ -699,6 +708,15 @@ class module_save_structs:
 		else:
 			_save_data.value.append(element)
 		return element.new_value()
+	
+	var _save_index: PBField
+	func get_save_index() -> int:
+		return _save_index.value
+	func clear_save_index() -> void:
+		data[2].state = PB_SERVICE_STATE.UNFILLED
+		_save_index.value = DEFAULT_VALUES_3[PB_DATA_TYPE.INT32]
+	func set_save_index(value : int) -> void:
+		_save_index.value = value
 	
 	class module_save_struct:
 		func _init():

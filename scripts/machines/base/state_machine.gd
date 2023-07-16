@@ -9,10 +9,9 @@ var cur_state:state = null
 var last_state:state = null
 @export var enable:bool = false
 
-func _enter_tree():
-	init_states()
-
 func _ready():
+	
+	init_states()
 	pass
 
 func init_states():

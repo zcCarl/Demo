@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://c6dnvfl52d8wj"]
+
+[ext_resource type="Texture2D" uid="uid://brv1md2qt7pno" path="res://art/isome/IsometricTRPGAssetPack_UI.png" id="1_u8g0o"]
+
+[resource]
+atlas = ExtResource("1_u8g0o")
+region = Rect2(64.182, 26, 15.818, 3)

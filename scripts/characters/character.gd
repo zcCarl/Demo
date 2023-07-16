@@ -5,16 +5,16 @@ class_name character
 
 func _ready():
 	$character_machine_normal.set_enable(true)
+	$drag_item.set_enable(true)
 
 func handle_movement_point_input(_delta):
-	if path.size()==0 and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		path = Game._scene._astar.get_auto_path(global_position,get_global_mouse_position())
-
+	pass
 func handle_movement_cancel_input(_delta):
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		if path.size()>0:
 			var last= path[0]
 			path = [last]
+			
 func handle_movement_input(_delta):
 	var direction_x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	var direction_y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
@@ -43,13 +43,13 @@ func handle_movement_input(_delta):
 #		path = [neighbors[dir]]	
 		
 func handle_open_action_area():
-	if ready_skill_index > -1:
-		var _skill:base_skill = skills[ready_skill_index]
-		var targets = []#main._game._scene.open_action_area(true,_skill)
-		_skill.add_targets(targets)
+	if ready_action_index > -1:
+		var _action:base_action = actions[ready_action_index]
+		var targets = []#main._game._scene.open_action_area(true,_action)
+		_action.add_targets(targets)
 		
 func handle_update_action_area():
-	if ready_skill_index > -1:
-		var _skill:base_skill = skills[ready_skill_index]
-		var targets = [] #main._game._scene.refresh_action_area(_skill)
-		_skill.add_targets(targets)
+	if ready_action_index > -1:
+		var _action:base_action = actions[ready_action_index]
+		var targets = [] #main._game._scene.refresh_action_area(_action)
+		_action.add_targets(targets)

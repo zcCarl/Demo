@@ -2,14 +2,13 @@ extends Area2D
 
 class_name drag_item
 
-signal signal_drag_item(item:drag_item)
 
 var hover = false
 
 var is_held = false
 
-var enable = true 
-
+@export var enable = true 
+@export var resetable = true
 var start_point = null
 
 var target_point = null
@@ -25,21 +24,25 @@ func _ready():
 
 func set_enable(m_enable):
 	enable = m_enable
+	if enable :
+		on_enable()
+	else:
+		on_disable()
 func on_enable():
-	Game._player_controller._drag_handler.regiest(self)
+	pass
 
 func on_disable():
-	Game._player_controller._drag_handler.unregiest(self)
+	pass
 	
 func _unhandled_input(event):
 	if enable and event is InputEventMouseButton:
 		if hover:
 			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-				signal_drag_item.emit(self)
+				Signals.signal_drag_item.emit(self)
 			elif event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
-				signal_drag_item.emit(null)
+				Signals.signal_drag_item.emit(null)
 		elif is_held:
-			signal_drag_item.emit(null)
+			Signals.signal_drag_item.emit(null)
 			
 			
 func _mouse_enter():
@@ -50,7 +53,7 @@ func _mouse_exit():
 func pickup():
 	if is_held:
 		return
-	start_point = get_parent().global_transform.origin
+	start_point = get_parent().global_position
 	is_held = true
 	
 func drop(succ,vec):
@@ -58,16 +61,19 @@ func drop(succ,vec):
 	is_held = false
 	if !succ:
 		target_point = start_point
+		print(start_point)
 	else :
 		target_point = vec
-	reseting = true
+	if resetable:
+		reseting = true
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if is_held:
-		get_parent().global_transform.origin = get_global_mouse_position()
+		get_parent().global_position = get_global_mouse_position()
 	elif reseting:
-		var now = get_parent().global_transform.origin
-		get_parent().global_transform.origin = now.lerp(target_point,0.3)
-
-
+		get_parent().global_position =  get_parent().global_position.lerp(target_point,1)
+		print(get_parent().global_position,target_point)
+		if (target_point-get_parent().global_position).length()<5 :
+			get_parent().global_position = target_point
+			reseting = false

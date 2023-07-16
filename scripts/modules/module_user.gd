@@ -1,7 +1,5 @@
-extends module_setting_base
+extends module_option
 
 class_name module_user
-@export var save_index = -1
-
-func init_struct():
+func get_struct():
 	pass

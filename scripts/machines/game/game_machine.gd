@@ -1,6 +1,8 @@
 extends state_machine
 
 class_name game_machine
+
+var _context:game
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	

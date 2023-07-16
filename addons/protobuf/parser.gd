@@ -1857,6 +1857,15 @@ class Translator:
 					text += tabulate("_" + f.name + ".value.append(element)\n", nesting)
 					text += tabulate("return element\n", nesting)
 					nesting -= 1
+					text += tabulate("func remove_" + f.name + "(a_key)"  + ":\n", nesting)
+					nesting += 1
+					text += generate_group_clear(field_index, nesting)
+					text += tabulate("for v in _" + f.name + ".value:\n", nesting)
+					nesting += 1
+					text += tabulate("if v.key == a_key:\n", nesting)
+					nesting += 1
+					text += tabulate("_" + f.name + ".value.erase(v)\n", nesting)
+					nesting -= 3
 					if field_table[i].field_type == Analysis.FIELD_TYPE.MESSAGE:
 						text += tabulate("func add_" + f.name + "(a_key)" + value_return_type + ":\n", nesting)
 						nesting += 1

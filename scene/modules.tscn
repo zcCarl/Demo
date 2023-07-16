@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://dye3eti8pmqkl"]
 
 [ext_resource type="Script" path="res://scripts/modules/base/modules.gd" id="1_l0yhf"]
+[ext_resource type="Script" path="res://scripts/modules/module_setting.gd" id="2_bkdx0"]
 [ext_resource type="Script" path="res://scripts/modules/module_account.gd" id="2_hx03g"]
-[ext_resource type="Script" path="res://scripts/modules/module_option.gd" id="2_psmq2"]
 [ext_resource type="Script" path="res://scripts/modules/module_save.gd" id="3_8loe5"]
 [ext_resource type="Script" path="res://scripts/modules/module_player.gd" id="4_2qs3b"]
 [ext_resource type="Script" path="res://scripts/modules/module_world.gd" id="5_86wpw"]
@@ -13,7 +13,7 @@ script = ExtResource("1_l0yhf")
 
 [node name="module_option" type="Node2D" parent="."]
 visible = false
-script = ExtResource("2_psmq2")
+script = ExtResource("2_bkdx0")
 
 [node name="module_account" type="Node2D" parent="."]
 visible = false

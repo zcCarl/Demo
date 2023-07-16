@@ -1,11 +1,5 @@
 extends Node
 
-enum skill_target_type{
-	firends = 1,
-	enemies = 2,
-	firends_except_me = 3,
-	all = 4,
-}
 
 enum ui_layer{
 	game_root,
@@ -30,4 +24,27 @@ enum character_battle_state{
 	character_battle_state_ready,
 	character_battle_state_action,
 	character_battle_state_over,
+}
+enum skill_effect_type{
+	none,heal,damage,tickle,create_object
+}
+
+enum skill_target_type{
+	enemy,   #可见的
+	teammate,#队友
+	own,     #自己
+}
+
+enum skill_area_center_type{
+	any ,     #任意位置为中心
+	own ,     #玩家位置为中心
+	enermy ,  #敌人位置为中心
+	teammate ,#队友位置为中心
+}
+
+enum skill_area_type{
+	rectangle ,#矩形
+	point ,    #点
+	line ,     #线
+	rhombus ,  #菱形
 }

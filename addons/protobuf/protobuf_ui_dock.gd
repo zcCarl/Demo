@@ -35,8 +35,8 @@ extends VBoxContainer
 var Parser = preload("res://addons/protobuf/parser.gd")
 var Util = preload("res://addons/protobuf/protobuf_util.gd")
 
-var input_file_path = null
-var output_file_path = null
+var input_file_path = "res://proto/module.proto"
+var output_file_path = "res://scripts/module/base/proto.gd"
 
 func _ready():
 	pass

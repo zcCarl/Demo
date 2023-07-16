@@ -80,7 +80,8 @@ func delete_save(index):
 	Signals.on_delete_game_save.emit(index)
 
 func set_save(index):
-	var save_data = modules._module_save.get_save(index) 
+	var _module_save = modules.get_module(modules.module_enum.module_save) as module_save
+	var save_data = _module_save.get_save(index) 
 	print("222"+JSON.stringify(save_data))
 	if save_data :
 		print("33333")

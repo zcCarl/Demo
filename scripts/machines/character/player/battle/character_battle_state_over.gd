@@ -1,6 +1,6 @@
-extends state
+extends character_base_state
 
-
+class_name character_battle_state_over
 func state_enter(last_state):
 	pass
 	

@@ -8,4 +8,5 @@ message module_save_structs {
 		string save_character_pos = 4;
 	}
 	map<int32, module_save_struct> save_data = 1;
+	int32 save_index = 2;
 }
