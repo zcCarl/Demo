@@ -1,0 +1,10 @@
+[gd_resource type="SystemFont" format=3 uid="uid://c72h6h07nbwmy"]
+
+[resource]
+font_names = PackedStringArray("Avenir")
+font_italic = true
+hinting = 0
+subpixel_positioning = 0
+multichannel_signed_distance_field = true
+msdf_pixel_range = 8
+msdf_size = 16

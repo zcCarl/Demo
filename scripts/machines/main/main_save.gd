@@ -1,4 +1,4 @@
-extends state
+extends main_state
 class_name main_save
 var ui_save:ui_main_save 
 
@@ -26,7 +26,7 @@ func delete_save(save_index):
 
 func state_exit(next_state):
 	super.state_exit(next_state)
-	ui_root.close("res://scene/ui/ui_main_save.tscn")
+	ui_root.close(ui_config.ui_module_enum.ui_main_save)
 	pass
 	
 func state_logic(delta):

@@ -1,4 +1,4 @@
-extends state
+extends main_state
 class_name main_ready
 
 func state_enter(last_state):
@@ -38,7 +38,7 @@ func exit():
 
 func state_exit(next_state):
 	super.state_exit(next_state)
-	ui_root.close("res://scene/ui/ui_main_ready.tscn")
+	ui_root.close(ui_config.ui_module_enum.ui_main_ready)
 	Signals.on_ui_main_ready_start.disconnect(start)
 	pass
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b8ea43rmpysku"]
+[gd_scene load_steps=17 format=3 uid="uid://dhwgqglcopvtm"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_4yx5u"]
 [ext_resource type="PackedScene" uid="uid://oebw23rsnbud" path="res://scene/action/action_area.tscn" id="2_1c32u"]
@@ -13,10 +13,10 @@
 [ext_resource type="Script" path="res://scripts/scene/scene.gd" id="7_ydmty"]
 [ext_resource type="TileSet" uid="uid://b6wqbewj6r3rx" path="res://art/isome/new_tile_set.tres" id="12_38iae"]
 [ext_resource type="Script" path="res://scripts/scene/map_ground.gd" id="12_58a2g"]
-[ext_resource type="Script" path="res://scripts/scene/area_map.gd" id="13_a10wn"]
+[ext_resource type="Script" path="res://scripts/scene/map_indicator.gd" id="14_b1tpl"]
 [ext_resource type="Script" path="res://scripts/actions/action_manager.gd" id="14_jk0ja"]
 
-[sub_resource type="GDScript" id="GDScript_g877y"]
+[sub_resource type="GDScript" id="GDScript_3bdnq"]
 script/source = "extends Control
 var astar:AStar2D
 @export var path_color:Color = Color.YELLOW_GREEN
@@ -24,11 +24,11 @@ var astar:AStar2D
 
 
 func _ready():
-	astar = get_parent().get_parent().astar
+	astar = get_parent().astar
 
 func _draw():
 	if astar:
-		var map:TileMap = get_parent().get_parent()
+		var map:TileMap = get_parent()
 		var points_ids = astar.get_point_ids()
 		# 先画线
 		for point_id in points_ids:
@@ -39,21 +39,21 @@ func _draw():
 			for cnt_point_id in connects:
 				var cnt_pos = astar.get_point_position(cnt_point_id) # 转为单元格位置坐标
 				var cnt_screen_pos = map.map_to_local(cnt_pos)   # 转为屏幕坐标
-				draw_line(cel_screen_pos,cnt_screen_pos,path_color,0.5)
+				draw_line(cel_screen_pos,cnt_screen_pos,path_color,2)
 		# 后画点
 		for point_id in points_ids:
 			var cel_pos = astar.get_point_position(point_id) # 转为单元格位置坐标
-			draw_circle(map.map_to_local(cel_pos),1,point_color)
+			draw_circle(map.map_to_local(cel_pos),6,point_color)
 "
 
-[node name="game" type="Node"]
+[node name="game" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_4yx5u")
 
 [node name="action_area" parent="." instance=ExtResource("2_1c32u")]
 position = Vector2(-1, 41)
 
 [node name="camera_controller" type="Camera2D" parent="."]
-zoom = Vector2(5, 5)
 script = ExtResource("5_curbj")
 
 [node name="player_controller" type="Node2D" parent="."]
@@ -80,6 +80,7 @@ script = ExtResource("6_8we0b")
 [node name="controller" type="Node" parent="."]
 
 [node name="scene" type="Node2D" parent="."]
+y_sort_enabled = true
 script = ExtResource("7_ydmty")
 
 [node name="maps" type="Node2D" parent="scene"]
@@ -87,28 +88,29 @@ script = ExtResource("7_ydmty")
 [node name="map_ground" type="TileMap" parent="scene/maps"]
 y_sort_enabled = true
 tile_set = ExtResource("12_38iae")
+cell_quadrant_size = 96
 format = 2
 layer_0/y_sort_enabled = true
 layer_0/tile_data = PackedInt32Array(-196613, 65540, 9, -131077, 65540, 9, -65541, 65540, 9, -5, 65540, 9, 65531, 65540, 9, 131067, 65540, 9, 196603, 65540, 9, 262139, 65540, 9, 327675, 65540, 9, 393211, 65540, 9, -196612, 65540, 9, -131076, 65540, 9, -65540, 65540, 9, -4, 65540, 9, 65532, 65540, 9, 131068, 65540, 9, 196604, 65540, 9, 262140, 65540, 9, 327676, 65540, 9, 393212, 65540, 9, -196611, 65540, 9, -131075, 65540, 9, -65539, 65540, 9, -3, 65540, 9, 65533, 65540, 9, 131069, 65540, 9, 196605, 65540, 9, 262141, 65540, 9, 327677, 65540, 9, 393213, 65540, 9, -196610, 65540, 9, -131074, 65540, 9, -65538, 65540, 9, -2, 65540, 9, 65534, 65540, 9, 131070, 65540, 9, 196606, 65540, 9, 262142, 65540, 9, 327678, 65540, 9, 393214, 65540, 9, -196609, 65540, 9, -131073, 65540, 9, -65537, 65540, 9, -1, 65540, 9, 65535, 65540, 9, 131071, 65540, 9, 196607, 65540, 9, 262143, 65540, 9, 327679, 65540, 9, 393215, 65540, 9, -262144, 65540, 9, -196608, 65540, 9, -131072, 65540, 9, -65536, 65540, 9, 0, 65540, 9, 65536, 65540, 9, 131072, 65540, 9, 196608, 65540, 9, 262144, 65540, 9, 327680, 65540, 9, -262143, 65540, 9, -196607, 65540, 9, -131071, 65540, 9, -65535, 65540, 9, 1, 65540, 9, 65537, 65540, 9, 131073, 65540, 9, 196609, 65540, 9, 262145, 65540, 9, 327681, 65540, 9, -262142, 65540, 9, -196606, 65540, 9, -131070, 65540, 9, -65534, 65540, 9, 2, 65540, 9, 65538, 65540, 9, 131074, 65540, 9, 196610, 65540, 9, 262146, 65540, 9, 327682, 65540, 9, -262141, 65540, 9, -196605, 65540, 9, -131069, 65540, 9, -65533, 65540, 9, 3, 65540, 9, 65539, 65540, 9, 131075, 65540, 9, 196611, 65540, 9, 262147, 65540, 9, 327683, 65540, 9, -262140, 65540, 9, -196604, 65540, 9, -131068, 65540, 9, -65532, 65540, 9, 4, 65540, 9, 65540, 65540, 9, 131076, 65540, 9, 196612, 65540, 9, 262148, 65540, 9, 327684, 65540, 9, -262150, 65540, 9, -196614, 65540, 9, -131078, 65540, 9, -65542, 65540, 9, -6, 65540, 9, 65530, 65540, 9, 131066, 65540, 9, 196602, 65540, 9, 262138, 65540, 9, 327674, 65540, 9, 393210, 65540, 9, -262149, 65540, 9, -262148, 65540, 9, -262147, 65540, 9, -262146, 65540, 9, -262145, 65540, 9, -327680, 65540, 9, -327679, 65540, 9, -327678, 65540, 9, -327677, 65540, 9, -327676, 65540, 9, -393213, 65540, 9, -327687, 65540, 9, -262151, 65540, 9, -196615, 65540, 9, -131079, 65540, 9, -65543, 65540, 9, -7, 65540, 9, 65529, 65540, 9, 131065, 65540, 9, 196601, 65540, 9, 262137, 65540, 9, 327673, 65540, 9, -327686, 65540, 9, -327685, 65540, 9, -327684, 65540, 9, -327683, 65540, 9, -327682, 65540, 9, -327681, 65540, 9, -393216, 65540, 9, -393215, 65540, 9, -393214, 65540, 9, 393209, 65540, 9, 458745, 65540, 9, 458746, 65540, 9, 458747, 65540, 9, 458748, 65540, 9, 458749, 65540, 9, 458750, 65540, 9, 458751, 65540, 9, 393216, 65540, 9, 393217, 65540, 9, 393218, 65540, 9, 393219, 65540, 9, -393212, 65540, 9, 393220, 65540, 9, -393211, 65540, 9, -327675, 65540, 9, -262139, 65540, 9, -196603, 65540, 9, -131067, 65540, 9, -65531, 65540, 9, 5, 65540, 9, 65541, 65540, 9, 131077, 65540, 9, 196613, 65540, 9, 262149, 65540, 9, 327685, 65540, 9, 393221, 65540, 9)
 script = ExtResource("12_58a2g")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="scene/maps/map_ground"]
-follow_viewport_enabled = true
-
-[node name="debug" type="Control" parent="scene/maps/map_ground/CanvasLayer"]
+[node name="debug" type="Control" parent="scene/maps/map_ground"]
+z_index = 1
+y_sort_enabled = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -1870.0
-offset_bottom = -1030.0
 grow_horizontal = 2
 grow_vertical = 2
-script = SubResource("GDScript_g877y")
+mouse_filter = 2
+script = SubResource("GDScript_3bdnq")
 
 [node name="map_wall" type="TileMap" parent="scene/maps"]
+visible = false
 y_sort_enabled = true
 tile_set = ExtResource("12_38iae")
+cell_quadrant_size = 96
 format = 2
 layer_0/y_sort_enabled = true
 layer_0/tile_data = PackedInt32Array(-262151, 65540, 8, -196615, 65540, 8, -131079, 65540, 8, -65543, 65540, 8, -7, 65540, 8, 65529, 65540, 8, 131065, 65540, 8, 196601, 65540, 8, 262137, 65540, 8, 327673, 65540, 8, 393209, 65540, 8, 458745, 65540, 8, -327687, 65540, 8, -327686, 65540, 8, -327685, 65540, 8, -327684, 65540, 8, -327683, 65540, 8, -327682, 65540, 8, -327681, 65540, 8, -393216, 65540, 8, -393215, 65540, 8, -393214, 65540, 8, -393213, 65540, 8, -393212, 65540, 8, -393211, 65540, 8, -327675, 65540, 8)
@@ -152,26 +154,32 @@ layer_5/tile_data = PackedInt32Array(-655360, 65540, 8, -720896, 65540, 8, -6553
 visible = false
 y_sort_enabled = true
 tile_set = ExtResource("12_38iae")
+cell_quadrant_size = 96
 format = 2
 layer_0/y_sort_enabled = true
 layer_0/z_index = 10
 layer_0/tile_data = PackedInt32Array(-720909, 458756, 1, -655373, 458756, 1, -589837, 458756, 1, -524301, 458756, 1, -458765, 458756, 1, -393229, 458756, 1, -327693, 458756, 1, -262157, 458756, 1, -196621, 458756, 1, -131085, 458756, 1, -65549, 458756, 1, -13, 458756, 1, 65523, 458756, 1, -655372, 458756, 1, -589836, 458756, 1, -524300, 458756, 1, -458764, 458756, 1, -393228, 458756, 1, -327692, 458756, 1, -262156, 458756, 1, -196620, 458756, 1, -131084, 458756, 1, -65548, 458756, 1, -12, 458756, 1, 65524, 458756, 1, -655371, 458756, 1, -589835, 458756, 1, -524299, 458756, 1, -458763, 458756, 1, -393227, 458756, 1, -327691, 458756, 1, -262155, 458756, 1, -196619, 458756, 1, -131083, 458756, 1, -65547, 458756, 1, -11, 458756, 1, 65525, 458756, 1, -655370, 458756, 1, -589834, 458756, 1, -524298, 458756, 1, -458762, 458756, 1, -393226, 458756, 1, -327690, 458756, 1, -262154, 458756, 1, -196618, 458756, 1, -131082, 458756, 1, -65546, 458756, 1, -10, 458756, 1, 65526, 458756, 1, -655369, 458756, 1, -589833, 458756, 1, -524297, 458756, 1, -458761, 458756, 1, -393225, 458756, 1, -327689, 458756, 1, -262153, 458756, 1, -196617, 458756, 1, -131081, 458756, 1, -65545, 458756, 1, -9, 458756, 1, 65527, 458756, 1, -655368, 458756, 1, -589832, 458756, 1, -524296, 458756, 1, -458760, 458756, 1, -393224, 458756, 1, -327688, 458756, 1, -262152, 458756, 1, -196616, 458756, 1, -131080, 458756, 1, -65544, 458756, 1, -8, 458756, 1, 65528, 458756, 1, -655367, 458756, 1, -589831, 458756, 1, -524295, 458756, 1, -458759, 458756, 1, -393223, 458756, 1, -327687, 458756, 1, -262151, 458756, 1, -196615, 458756, 1, -131079, 458756, 1, -65543, 458756, 1, -7, 458756, 1, 65529, 458756, 1, -655366, 458756, 1, -589830, 458756, 1, -524294, 458756, 1, -458758, 458756, 1, -393222, 458756, 1, -327686, 458756, 1, -262150, 458756, 1, -196614, 458756, 1, -131078, 458756, 1, -65542, 458756, 1, -6, 458756, 1, 65530, 458756, 1, -655365, 458756, 1, -589829, 458756, 1, -524293, 458756, 1, -458757, 458756, 1, -393221, 458756, 1, -327685, 458756, 1, -262149, 458756, 1, -196613, 458756, 1, -131077, 458756, 1, -65541, 458756, 1, -5, 458756, 1, 65531, 458756, 1, -655364, 458756, 1, -589828, 458756, 1, -524292, 458756, 1, -458756, 458756, 1, -393220, 458756, 1, -327684, 458756, 1, -262148, 458756, 1, -196612, 458756, 1, -131076, 458756, 1, -65540, 458756, 1, -4, 458756, 1, 65532, 458756, 1, -655363, 458756, 1, -589827, 458756, 1, -524291, 458756, 1, -458755, 458756, 1, -393219, 458756, 1, -327683, 458756, 1, -262147, 458756, 1, -196611, 458756, 1, -131075, 458756, 1, -65539, 458756, 1, -3, 458756, 1, 65533, 458756, 1, -655362, 458756, 1, -589826, 458756, 1, -524290, 458756, 1, -458754, 458756, 1, -393218, 458756, 1, -327682, 458756, 1, -262146, 458756, 1, -196610, 458756, 1, -131074, 458756, 1, -65538, 458756, 1, -2, 458756, 1, 65534, 458756, 1, -655361, 458756, 1, -589825, 458756, 1, -524289, 458756, 1, -458753, 458756, 1, -393217, 458756, 1, -327681, 458756, 1, -262145, 458756, 1, -196609, 458756, 1, -131073, 458756, 1, -65537, 458756, 1, -1, 458756, 1, 65535, 458756, 1, -720908, 458756, 1, -720907, 458756, 1, -720906, 458756, 1, -720905, 458756, 1, -720904, 458756, 1, -720903, 458756, 1, -720902, 458756, 1, -720901, 458756, 1, -720900, 458756, 1, -720899, 458756, 1, -720898, 458756, 1, -720897, 458756, 1)
 
 [node name="map_pattern" type="TileMap" parent="scene/maps"]
+visible = false
 y_sort_enabled = true
 tile_set = ExtResource("12_38iae")
+cell_quadrant_size = 96
 format = 2
 layer_0/y_sort_enabled = true
 
 [node name="map_building" type="TileMap" parent="scene/maps"]
+visible = false
 y_sort_enabled = true
 tile_set = ExtResource("12_38iae")
+cell_quadrant_size = 96
 format = 2
 layer_0/y_sort_enabled = true
 
 [node name="map_indicator" type="TileMap" parent="scene/maps"]
 y_sort_enabled = true
 tile_set = ExtResource("12_38iae")
+cell_quadrant_size = 96
 format = 2
 layer_0/y_sort_enabled = true
 layer_0/tile_data = PackedInt32Array(1179641, 196611, 3, 1179640, 65539, 0, 1245176, 196611, 2, 1245175, 65539, 0, 1310711, 196611, 2, 1310710, 65539, 0, 1376246, 196611, 2, 1376245, 65539, 0, 1441781, 3, 2, 1114099, 0, 0, 1179635, 0, 1, 1245171, 196608, 2, 1245170, 65536, 0, 1310706, 0, 1, 1376242, 0, 1, 1441778, 0, 1, 1507314, 0, 1, 1572850, 196608, 2, 1572849, 65536, 3)
@@ -189,7 +197,7 @@ layer_2/y_sort_enabled = true
 layer_2/y_sort_origin = 0
 layer_2/z_index = 2
 layer_2/tile_data = PackedInt32Array()
-script = ExtResource("13_a10wn")
+script = ExtResource("14_b1tpl")
 
 [node name="spell_manager" type="Node" parent="."]
 script = ExtResource("14_jk0ja")
@@ -197,5 +205,3 @@ script = ExtResource("14_jk0ja")
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 autostart = true
-
-[connection signal="timeout" from="Timer" to="." method="test_battle"]

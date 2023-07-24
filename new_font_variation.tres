@@ -1,0 +1,6 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://ckdcir5k3025d"]
+
+[ext_resource type="SystemFont" uid="uid://c72h6h07nbwmy" path="res://new_system_font.tres" id="1_7x13t"]
+
+[resource]
+base_font = ExtResource("1_7x13t")

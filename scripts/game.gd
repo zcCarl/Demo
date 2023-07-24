@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 class_name game
 @onready var _scene = $"scene" as scene
 @onready var _player_controller =$player_controller as player_controller
@@ -9,6 +9,7 @@ var _ememy_team : base_team
 # Called when the node enters the scene tree for the first time.
 func setup():
 	_player_controller.setup(_scene)
+	test_battle()
 	pass # Replace with function body.
 
 func create_team(player:bool,friend:bool,size:int,members:Array[base_character]):
@@ -20,18 +21,25 @@ func create_team(player:bool,friend:bool,size:int,members:Array[base_character])
 func test_battle():
 	var _character1= preload("res://scene/character/character_1.tscn").instantiate()
 	_scene.add_child(_character1)
-	_character1.setup(1)
+	_character1.setup(1,_scene._map_ground)
+	#_character1.position = Vector2(1,1)*32
 	var _character2= preload("res://scene/character/character_1.tscn").instantiate()
 	_scene.add_child(_character2)
-	_character2.setup(1)
+	_character2.setup(1,_scene._map_ground)
+	
+	#_character2.position = Vector2(2,2)*32
 	var team = create_team(true,true,4,[_character1,_character2])
 	
 	var _character3= preload("res://scene/character/character_1.tscn").instantiate()
 	_scene.add_child(_character3)
-	_character3.setup(1)
+	_character3.setup(1,_scene._map_ground)
+	
+	#_character3.position = Vector2(3,3)*32
 	var _character4= preload("res://scene/character/character_1.tscn").instantiate()
-	_character4.setup(1)
+	_character4.setup(1,_scene._map_ground)
 	_scene.add_child(_character4)
+	
+	#_character4.position = Vector2(4,4)*32
 	var team2 = create_team(false,false,4,[_character3,_character4])
 	start_battle([team,team2])
 	
@@ -54,7 +62,9 @@ func change_battle(battle):
 func end_battle(battle:battle_system):
 	_battles.erase(battle)
 	pass
-	
+
+func preview_spell(c:base_character):
+	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass

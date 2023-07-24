@@ -2,13 +2,15 @@ extends action_target
 
 class_name base_character
 
-const SLOPE_STOP = 16
-
 @onready var collision = $"collision_shape"
-@onready var sprite = $"body/sprite"
+@onready var sprite = $"body/sprite" as AnimatedSprite2D
 @onready var body = $"body"
 @onready var animation = $"animation"
 
+@export_range(0.01, 500, 0.01) var move_speed:float = 0.2
+@export_range(0.0, 1, 0.01) var move_idle_time:float = 0.05
+var _map_ground:map_ground = null
+var _controller:base_controller = null
 var team:base_team = null
 var team_index:int = -1
 
@@ -16,23 +18,26 @@ var _on_turn_over:Callable
 var action_point_max = 8
 var action_point : int = 0
 var target_p:Vector2 = Vector2.INF
+var is_move = false
+var is_move_step = false
 var is_alive = true
 var is_battle = false
 var is_turn = false
-
-var dir_str = ""
+var tween :Tween = null
+var dir_str = "rf"
 
 var path = []
 var basic_proterties : character_properties 
 var dynamic_proterties : character_properties 
 var actions:Array[base_action] = []
 var ready_action_index = -1
-@export var move_speed = 150
-@export_range(0.0, 1, 0.05) var move_idle_time:float = 0.0
 var move_direction =Vector2()
+var move_index = 1
+var next_move_time = 0
 
-
-func setup(id):
+func setup(id,ground:map_ground):
+	_map_ground = ground
+	#_map_ground.refresh_dynamic_obsable(Vector2.INF,global_position)
 	var _config = Settings.character_basic.data[id]
 	basic_proterties = character_properties.new(_config)
 	dynamic_proterties = character_properties.new().copy(basic_proterties) 
@@ -49,18 +54,22 @@ func on_leave_team(t:base_team):
 		team = null
 
 func turn_start(on_turn_over:Callable):
+	print("回合开始",team_index)
+	_map_ground.refresh_dynamic_obsable(global_position,Vector2.INF)
 	is_turn = true 
 	action_point = action_point_max
 	_on_turn_over = on_turn_over
 	
 func turn_end():
+	print("回合结束",team_index)
+	_map_ground.refresh_dynamic_obsable(last_global_position,global_position)
 	is_turn = false 
 	path.clear()
 	target_p = Vector2.INF
 	_on_turn_over.call()
 
 func cost_action_point(cost)->bool:
-	if action_point > cost:
+	if action_point >= cost:
 		action_point -= cost
 		print("消耗行动点",cost)
 		return true
@@ -89,59 +98,80 @@ func handle_movement_input(_delta):
 func handle_movement_drag_input(_delta):
 	
 	pass
-var next_move_time = 0
 
+func _physics_process(delta):
+	pass
+func _process(delta):
+	pass
+
+func move_map_point(target_map_point:Vector2i):
+	if not is_move:
+		var self_map_point = scene_util.gloal_to_map(_map_ground,global_position)
+		var path = _map_ground.get_auto_path(self_map_point,target_map_point)
+		add_path(path)
+	
 func add_path(_path):
-	print("增加点",_path)
+	path.clear()
 	path.append_array(_path)
-
-func move_path(_delta):
-	if next_move_time > 0:
-		next_move_time -= _delta
-		return
-	if path.size()>0 :
-		if target_p == Vector2.INF or target_p != path[0]:
-			#寻找下一个点
-			print("目标点",path[0])
-			target_p = path[0]
-		move_direction =target_p - global_position
-		var flip = false
-		if move_direction.x < 0 and move_direction.y > 0:
-#			flip = true
-
-			flip = true
-			self.dir_str = "rf"
-		elif  move_direction.x < 0 and move_direction.y < 0:
-			
-			flip = true
-			self.dir_str = "rb"
-		elif  move_direction.x > 0 and move_direction.y > 0:
-			
-			self.dir_str = "rf"
-		elif  move_direction.x > 0 and move_direction.y < 0:
-			
-			self.dir_str = "rb"
+	move_index = 0
+	print("路径",path)
+	
+var last_global_position = Vector2.INF
+func move_step():
+	if move_speed > 0 and path.size()>1 :
+		is_move = true
+		is_move_step = true
+		velocity = path[move_index] - global_position
+		tween = create_tween()
+		var proterty_tweener:PropertyTweener = tween.tween_property(self, "global_position", path[move_index] , 1/move_speed)
+		proterty_tweener.set_trans(Tween.TRANS_LINEAR)
+		proterty_tweener.from(path[move_index-1])
+		tween.tween_callback(on_move_step_over)
+		on_frame_anim()
+	else:
+		path.clear()
+		is_move = false
+	pass
+func on_move_step_over():
+	if move_idle_time > 0:
+		is_move_step = false
+		on_frame_anim()
+		await get_tree().create_timer(move_idle_time).timeout
+	if cost_action_point(1):
+		move_index += 1
+		if move_index < path.size():
+			move_step()
 		else:
-			flip = sprite.flip_h 
-			self.dir_str = $body/sprite.animation
-		global_position = global_position.move_toward(target_p,move_speed*_delta)
-		
-		if flip!=sprite.flip_h:
-			sprite.flip_h = flip
-		if (target_p - global_position).length()== 0 :
-			if cost_action_point(1):
-				path.remove_at(0)
-				if path.size()>0 :
-					next_move_time = move_idle_time
-	#			else:
-					#$body/sprite.play("rf",1,true)
-			else:
-				turn_end()
-		else:
-			if self.dir_str!= "" and $body/sprite.animation !=  self.dir_str:
-				#print(self.dir_str)
-				$body/sprite.play(self.dir_str,1,true)
-				
+			path.clear()
+			is_move_step = false
+			is_move = false
+		pass
+	else:
+		path.clear()
+		is_move_step = false
+		is_move = false
+	on_frame_anim()
+func on_frame_anim():
+	#return
+	if velocity.x < 0 and velocity.y > 0:
+		self.dir_str = "lf"
+	elif  velocity.x < 0 and velocity.y < 0:
+		self.dir_str = "lb"
+	elif  velocity.x > 0 and velocity.y > 0:
+		self.dir_str = "rf"
+	elif  velocity.x > 0 and velocity.y < 0:
+		self.dir_str = "rb"
+#	if self.dir_str == "":
+#		self.dir_str = "rf"
+	if !is_move_step :
+		var play_str = "idle_" + self.dir_str 
+		if play_str!=sprite.animation:
+			sprite.play(play_str,1,true)
+	else:
+		var play_str = "walk_" + self.dir_str 
+		if sprite.animation !=  play_str:
+			sprite.play(play_str,1,true)
+	pass
 func handle_open_action_area():
 	pass
 	
@@ -168,6 +198,3 @@ func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

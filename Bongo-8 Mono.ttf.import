@@ -1,0 +1,39 @@
+[remap]
+
+importer="font_data_dynamic"
+type="FontFile"
+uid="uid://on756yfmglhs"
+path="res://.godot/imported/Bongo-8 Mono.ttf-fcfe4cc0f8994f247be815d97ac0e513.fontdata"
+
+[deps]
+
+source_file="res://Bongo-8 Mono.ttf"
+dest_files=["res://.godot/imported/Bongo-8 Mono.ttf-fcfe4cc0f8994f247be815d97ac0e513.fontdata"]
+
+[params]
+
+Rendering=null
+antialiasing=0
+generate_mipmaps=true
+multichannel_signed_distance_field=true
+msdf_pixel_range=8
+msdf_size=16
+allow_system_fallback=true
+force_autohinter=false
+hinting=0
+subpixel_positioning=0
+oversampling=0.0
+Fallbacks=null
+fallbacks=[]
+Compress=null
+compress=true
+preload=[{
+"chars": [],
+"glyphs": [],
+"name": "新建配置",
+"size": Vector2i(16, 0),
+"variation_embolden": 0.0
+}]
+language_support={}
+script_support={}
+opentype_features={}

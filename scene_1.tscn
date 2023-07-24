@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/scene/scene.gd" id="1_ohaxc"]
 [ext_resource type="TileSet" uid="uid://6xyp8tf2ugf" path="res://new_tile_set.tres" id="2_bofep"]
-[ext_resource type="Script" path="res://scripts/scene/area_map.gd" id="3_kmhpw"]
+[ext_resource type="Script" path="res://scripts/scene/map_indicator.gd" id="3_kmhpw"]
 
 [node name="tile_map" type="Node2D"]
 scale = Vector2(1, 0.998974)

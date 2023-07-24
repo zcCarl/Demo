@@ -3,8 +3,10 @@ class_name scene
 #@onready var _player_controller = $"player_controller" as player_controller
 #@onready var _astar:tilemap_astar = $"tilemap_astar"
 @onready var _map_ground = $maps/map_ground as map_ground
+@onready var _map_indicator = $maps/map_indicator as map_indicator
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	_map_indicator.setup(_map_ground)
 #	_astar.setup($maps/map_ground,0)
 #	_astar.show_navigation_cells_pos = true
 #	_astar.show_navigation_cells_id = true

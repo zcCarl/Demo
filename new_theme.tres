@@ -1,0 +1,18 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://d30jubrhraddy"]
+
+[ext_resource type="FontFile" uid="uid://on756yfmglhs" path="res://Bongo-8 Mono.ttf" id="1_yi4kf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_26mcy"]
+
+[resource]
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_outline_color = Color(1, 1, 1, 1)
+Label/colors/font_shadow_color = Color(0, 0, 0, 1)
+Label/constants/line_spacing = 3
+Label/constants/outline_size = 0
+Label/constants/shadow_offset_x = 0
+Label/constants/shadow_offset_y = 0
+Label/constants/shadow_outline_size = 0
+Label/font_sizes/font_size = 8
+Label/fonts/font = ExtResource("1_yi4kf")
+Label/styles/normal = SubResource("StyleBoxEmpty_26mcy")

@@ -14,7 +14,7 @@ func _ready():
 
 func open(index:ui_config.ui_module_enum)->ui_base:
 	var config = ui_config.get_config(index)
-	var r = ResourceQueue.get_resource(config.path)
+	var r = load(config.path)
 	#var load_async_handler = ResourceQueue.queue_resource(config.path)
 	#var r = await load_async_handler.completed
 	if r and r is PackedScene:
@@ -26,6 +26,7 @@ func open(index:ui_config.ui_module_enum)->ui_base:
 
 
 
-func close(path):
-	pool[path].close()
+func close(index:ui_config.ui_module_enum):
+	var config = ui_config.get_config(index)
+	pool[config.path].close()
 	pass

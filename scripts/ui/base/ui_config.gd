@@ -3,6 +3,8 @@ extends Node
 enum ui_module_enum{
 	ui_main_ready,
 	ui_main_save,
+	ui_message,
+	character_hud,
 }
 
 var data: Array[Dictionary]= [

@@ -1,0 +1,103 @@
+[gd_scene load_steps=3 format=3 uid="uid://6sfgqbgalnhx"]
+
+[ext_resource type="Script" path="res://scripts/ui/ui_main_game.gd" id="1_2utra"]
+[ext_resource type="Script" path="res://scripts/ui/component/InfiniteScrollContainer.gd" id="2_waprn"]
+
+[node name="u_main_game" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2utra")
+
+[node name="action_root" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="select_root" type="VFlowContainer" parent="action_root"]
+layout_mode = 0
+offset_right = 516.0
+offset_bottom = 220.0
+
+[node name="move_btn" type="Button" parent="action_root/select_root"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "移动"
+
+[node name="attack_btn" type="Button" parent="action_root/select_root"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "攻击"
+
+[node name="spell_btn" type="Button" parent="action_root/select_root"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "技能"
+
+[node name="item_btn" type="Button" parent="action_root/select_root"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "物品"
+
+[node name="sub_select_root" type="ScrollContainer" parent="action_root"]
+layout_mode = 2
+offset_left = 104.0
+offset_right = 204.0
+offset_bottom = 128.0
+follow_focus = true
+script = ExtResource("2_waprn")
+
+[node name="content" type="VBoxContainer" parent="action_root/sub_select_root"]
+layout_mode = 2
+
+[node name="Button4" type="Button" parent="action_root/sub_select_root/content"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "攻击"
+
+[node name="Button5" type="Button" parent="action_root/sub_select_root/content"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "攻击"
+
+[node name="Button6" type="Button" parent="action_root/sub_select_root/content"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "攻击"
+
+[node name="Button7" type="Button" parent="action_root/sub_select_root/content"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "攻击"
+
+[node name="Button8" type="Button" parent="action_root/sub_select_root/content"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "攻击"
+
+[node name="Button9" type="Button" parent="action_root/sub_select_root/content"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "攻击"
+
+[node name="Button10" type="Button" parent="action_root/sub_select_root/content"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "攻击"
+
+[node name="Button11" type="Button" parent="action_root/sub_select_root/content"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "攻击"
+
+[node name="Button3" type="Button" parent="."]
+visible = false
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+offset_left = 104.0
+offset_right = 204.0
+offset_bottom = 40.0
+text = "攻击"

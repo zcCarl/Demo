@@ -1,4 +1,4 @@
-extends state
+extends main_state
 class_name main_init
 func state_enter(last_state):
 	super.state_enter(last_state)

@@ -12,6 +12,7 @@ var _layer_id:int
 var _pos_labs:Array[Label] = []
 var _id_labs:Array[Label] = []
 var _point_map = {}
+var _point_dynamic_obsable = []
 # 是否用Label显示所有可通行位置的单元格坐标
 @export var show_navigation_cells_pos:bool = false:
 	set(val):
@@ -48,7 +49,7 @@ func _init(tile_map:TileMap,layer_id:int):
 	
 	# 添加可通行点
 	for cell in get_has_navigation_cells():
-		var id = get_available_point_id()
+		var id = scene_util.point_to_id(cell)
 		_point_map[cell] = id
 		add_point(id,cell)
 	
@@ -63,6 +64,49 @@ func _init(tile_map:TileMap,layer_id:int):
 				if cel_id in points_ids: # 验证点在已经添加的位置内
 					if !are_points_connected(cel_id,point_id): # 验证两个点之间不存在连接
 						connect_points(cel_id,point_id)
+
+func refresh_dynamic_obstacle(old_global_position:Vector2,new_global_position:Vector2):
+	if old_global_position!=Vector2.INF:
+		var old_position = _tile_map.to_local(old_global_position)
+		var old_point = _tile_map.local_to_map(old_position)
+		if _point_dynamic_obsable.has(scene_util.point_to_id(old_point)):
+			_point_dynamic_obsable.erase(scene_util.point_to_id(old_point))
+			add_point_connect(scene_util.point_to_id(old_point))
+	if new_global_position != Vector2.INF:
+		var new_position = _tile_map.to_local(new_global_position)
+		var new_point = _tile_map.local_to_map(new_position)
+		if !_point_dynamic_obsable.has(scene_util.point_to_id(new_point)):
+			_point_dynamic_obsable.append(scene_util.point_to_id(new_point))
+		remove_connect_point(scene_util.point_to_id(new_point))
+	pass
+
+func add_point_connect(point_id:int):
+	print("移除障碍点",point_id)
+	if has_point(point_id):
+		var points_ids = get_point_ids()
+		var point_cell_pos = get_point_position(point_id) # id转为单元格坐标
+		var surround_cell_pos_arr = _tile_map.get_surrounding_cells(point_cell_pos)# 获取周边6个位置
+		for cel in surround_cell_pos_arr:
+			var cel_id = get_closest_point(cel)# 尝试获取最接近的点的id
+			if Vector2i(get_point_position(cel_id)) in surround_cell_pos_arr: # 验证获取的点的ID在周围6个位置内
+				if cel_id in points_ids: # 验证点在已经添加的位置内
+					if !_point_dynamic_obsable.has(cel_id) and !are_points_connected(cel_id,point_id): # 验证两个点之间不存在连接
+						print("添加移除点链接",cel_id)
+						connect_points(cel_id,point_id)
+
+func remove_connect_point(point_id:int):
+	print("添加障碍点",point_id)
+	if has_point(point_id):
+		var points_ids = get_point_ids()
+		var point_cell_pos = get_point_position(point_id) # id转为单元格坐标
+		var surround_cell_pos_arr = _tile_map.get_surrounding_cells(point_cell_pos)# 获取周边6个位置
+		for cel in surround_cell_pos_arr:
+			var cel_id = get_closest_point(cel)# 尝试获取最接近的点的id
+			if Vector2i(get_point_position(cel_id)) in surround_cell_pos_arr: # 验证获取的点的ID在周围6个位置内
+				if cel_id in points_ids: # 验证点在已经添加的位置内
+					if !_point_dynamic_obsable.has(cel_id) and are_points_connected(cel_id,point_id): # 验证两个点之间不存在连接
+						print("移除添加点链接",cel_id)
+						disconnect_points(cel_id,point_id)
 
 # 判断单元格是否存在导航多边形
 func is_cell_has_navigation_polygon(cell:Vector2i):
@@ -95,7 +139,7 @@ func create_lab(content:String,font_color:Color = Color("#ffffff")):
 	# 构造LabelSettings
 	var lab_setting = LabelSettings.new()
 	lab_setting.font_color = font_color
-	lab_setting.font_size = _tile_map.tile_set.tile_size.x /8
+	lab_setting.font_size = 20 #_tile_map.tile_set.tile_size.x /8
 	lab_setting.outline_color = Color("#444444")
 	lab_setting.outline_size = lab_setting.font_size/3
 	lab_setting.shadow_color = Color("#3333339e")
@@ -104,6 +148,8 @@ func create_lab(content:String,font_color:Color = Color("#ffffff")):
 	# 其他配置
 	lab.label_settings = lab_setting
 	lab.text = content
+	lab.y_sort_enabled = true
+	lab.z_index = 1
 	return lab
 
 # 显示TileMap对应单元格的位置信息
@@ -116,6 +162,6 @@ func show_cell_pos(cell:Vector2i):
 # 显示单元格对应的AStar2D的点ID
 func show_cell_id(cell:Vector2i,id:int):
 	var lab = create_lab(str(id),Color.ORANGE)
-	lab.position = _tile_map.map_to_local(cell) - Vector2(_tile_map.tile_set.tile_size /5.5)
+	lab.position = _tile_map.map_to_local(cell) + Vector2(0,-24)
 	_tile_map.add_child(lab)
 	_id_labs.append(lab)
