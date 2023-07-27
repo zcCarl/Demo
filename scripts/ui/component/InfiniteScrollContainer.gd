@@ -1,70 +1,152 @@
 extends ScrollContainer
-
+class_name InfiniteScrollContainer
 const ITEM_HEIGHT = 40
-const BUFFER_SIZE = 5
-
-@onready var content:BoxContainer = $content
+@onready var content:Control = $content
+var item_to_index = {}
+var item_to_remove = []
 var total_items = 0
-var current_index = 0
-var visible_items = 0
-var buffer = 0
-
 var start_index = 0
 var end_index = 0
-var previous_value = 0.0
-@export var template :PackedScene
+var start_page = 0
+var end_page = 0
+var content_size = 0
+var datas:Array[InfiniteScrollContainerItem.InfiniteScrollContainerItemData] = []
+var page:Array = []
+var page_height:Array[float] = []
+const PAGE_DATA_SIZE = 10
+var content_pos = 0
+@export var template:PackedScene = null
+
 func _ready():
 	get_v_scroll_bar().connect("value_changed",_on_VScrollBar_value_changed)
 	total_items = 100
-	visible_items = min(ceili(get_rect().size.y/ITEM_HEIGHT),total_items)
-	buffer = BUFFER_SIZE
-	start_index = 0
-	end_index = min(start_index + visible_items,total_items)
+	for i in total_items:
+		var data = InfiniteScrollContainerItem.InfiniteScrollContainerItemData.new(i,40,{}) 
+		datas.append(data)
+		
+	set_datas(datas)
 	
-	update_visible_items()
-
 func _on_VScrollBar_value_changed(value:float):
-	print(value)
-	start_index += int(value - previous_value)
-	start_index = (start_index+total_items)%total_items
-	end_index = (start_index+visible_items)%total_items
-#	if value < previous_value and  start_index == 0:
-#		previous_value = value
-	update_visible_items()
+	content_pos = value
+	update_visible_items(value)
+	
+func set_datas(datas:Array[InfiniteScrollContainerItem.InfiniteScrollContainerItemData]):
+	var current = 0
+	content_size = 0
+	for data in datas:
+		if page.size() <= current:
+			page.append([])
+			page_height.append(0)
+		if page[current].size() == PAGE_DATA_SIZE:
+			current += 1
+			page.append([])
+			page_height.append(0)
+		page[current].append(data)
+		page_height[current] += data._item_height
+		content_size += data._item_height
+	content.custom_minimum_size = Vector2(get_rect().size.x,content_size)
+	start_index = 0
+	start_page = 0
+	end_page = 0
+	update_visible_items(content_pos)
+	
+func create_item():
+	var item = template.instantiate() as InfiniteScrollContainerItem
+	content.add_child(item)
+	return item
 
-func update_visible_items():
-	var item_to_remove = []
-	for i in range(content.get_child_count()):
-		var item = content.get_child(i)
-		var item_index = item.name.to_int()
-		if !is_item_within_range(item_index):
-			item_to_remove.append(item)
-	for item in item_to_remove:
-		content.remove_child(item)
-		item.queue_free()
-	print(start_index,end_index)
-	for i in update_scroll_position():
-		if content.has_node(str(i)) == false:
-			var list_item = template.instantiate() as InfiniteScrollContainerItem
-			list_item.set_data(i)
-			#list_item.custom_minimum_size = Vector2(0, ITEM_HEIGHT)
-			list_item.name = str(i)
-			content.add_child(list_item)
-#			if i<start_index:
-#				content.move_child(list_item,0)
-#			else:
-#				content.move_child(list_item,content.get_child_count()-1)
-	previous_value = get_v_scroll_bar().value
-	pass	
-func  is_item_within_range(index):
-	if start_index<=end_index:
-		return index>=start_index and index<end_index
+func update_visible_items(value):
+	var t = 0
+	for p_index in page_height.size():
+		if t + page_height[p_index] < value :
+			t += page_height[p_index]
+		else:
+			#print(p_index)
+			start_page = p_index
+			for i in page[start_page].size():
+				if t + page[start_page][i]._item_height < value:
+					t += page[start_page][i]._item_height
+				else:
+					start_index = i
+					break
+			break
+	end_index = start_index
+	end_page = start_page
+	
+	
+	var visible_count = 0
+	while t < value + get_rect().size.y:
+		#print(t + page[end_page][end_index]._item_height," --- " ,value + get_rect().size.y)
+		#print(end_index ,"~~~~", page[end_page].size())
+		if end_index < page[end_page].size():
+			t += page[end_page][end_index]._item_height
+			
+			if end_index+1 >= page[end_page].size():
+				if end_page + 1 < page.size():
+					end_page += 1
+					end_index = 0
+			else:
+				end_index += 1
+		else :
+			if end_page + 1 < page.size():
+				end_page += 1
+				end_index = 0
+			else:
+				break
+				
+	print(start_page," ",start_index," " , end_page," ",end_index)
+	var show_items = []
+	var pos = {}
+	var h = value
+	if start_page == end_page:
+		for i in range(start_index,end_index+1):
+			var data = page[start_page][i]
+			show_items.append(data._item_index)
+			pos[start_page*PAGE_DATA_SIZE+i] = h
+			h += data._item_height 
+			#print(start_page,"++++",i)
 	else:
-		return index>=start_index or index < end_index
-func update_scroll_position():
-	var items = []
-	if start_index<=end_index:
-		items = range(start_index,end_index)
-	else:
-		items = range(start_index,end_index) + range(0,end_index)
-	return items
+		for p in range(start_page,end_page + 1):
+			var data:InfiniteScrollContainerItem.InfiniteScrollContainerItemData = null
+			if p == start_page:
+				for i in range(start_index,page[p].size()):
+					data = page[p][i]
+					show_items.append(data._item_index)
+					pos[p*PAGE_DATA_SIZE+i] = h
+					h += data._item_height 
+					#print(p,"++++",i)
+			elif p == end_page:
+				for i in range(0,end_index+1):
+					data = page[p][i]
+					show_items.append(data._item_index)
+					pos[p*PAGE_DATA_SIZE+i] = h
+					h += data._item_height
+					#print(p,"++++",i) 
+			else:
+				for i in range(0,page[p].size()):
+					data = page[p][i]
+					show_items.append(data._item_index)
+					pos[p*PAGE_DATA_SIZE+i] = h
+					h += data._item_height 
+					#print(p,"++++",i)
+	print(show_items)
+	print(pos)
+	
+	for i in pos:
+		if !item_to_index.has(i):
+			for index in item_to_index:
+				if index < start_page*PAGE_DATA_SIZE+ start_index or index >= end_page*PAGE_DATA_SIZE+end_index:
+					item_to_index[index].visible = false
+					item_to_remove.append(item_to_index[index]) 
+					item_to_index.erase(index)
+			if item_to_remove.size()>0:
+				item_to_index[i] = item_to_remove.pop_back()
+				item_to_index[i].visible = true
+			else:
+				item_to_index[i] = create_item()
+		
+		var data = page[i/PAGE_DATA_SIZE][i%PAGE_DATA_SIZE]
+		print(i,",,,",pos[i],",,,",data)
+		item_to_index[i].set_data(data)
+		item_to_index[i].size = Vector2(get_rect().size.x,data._item_height)
+		item_to_index[i].position = Vector2(0,pos[i])

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://5klra2qahy4w"]
+
+[ext_resource type="Script" path="res://scripts/ui/component/InfiniteScrollContainerItem.gd" id="1_364se"]
+
+[node name="InfiniteScrollContainerItem" type="Control"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 100.0
+offset_bottom = 40.0
+script = ExtResource("1_364se")

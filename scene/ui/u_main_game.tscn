@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://6sfgqbgalnhx"]
 
 [ext_resource type="Script" path="res://scripts/ui/ui_main_game.gd" id="1_2utra"]
-[ext_resource type="Script" path="res://scripts/ui/component/InfiniteScrollContainer.gd" id="2_waprn"]
-[ext_resource type="PackedScene" uid="uid://5klra2qahy4w" path="res://scripts/ui/item.tscn" id="3_ibfkw"]
+[ext_resource type="PackedScene" uid="uid://bcbts8y13teoe" path="res://scene/ui/InfiniteScrollContainer.tscn" id="2_cadrb"]
+[ext_resource type="PackedScene" uid="uid://cg5ng2acpqvq1" path="res://scene/ui/InfiniteScrollContainerItem_Test1.tscn" id="3_ionq0"]
 
 [node name="u_main_game" type="Control"]
 layout_mode = 3
@@ -44,53 +44,12 @@ custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "物品"
 
-[node name="PanelContainer" type="ScrollContainer" parent="action_root"]
+[node name="InfiniteScrollContainer" parent="." instance=ExtResource("2_cadrb")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 338.0
-offset_top = 258.0
-offset_right = 409.0
-offset_bottom = 376.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("2_waprn")
-template = ExtResource("3_ibfkw")
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+template = ExtResource("3_ionq0")
 
-[node name="content" type="VBoxContainer" parent="action_root/PanelContainer"]
-layout_mode = 2
-
-[node name="PanelContainer2" type="ScrollContainer" parent="action_root"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 548.0
-offset_top = 252.0
-offset_right = 619.0
-offset_bottom = 370.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="content" type="VBoxContainer" parent="action_root/PanelContainer2"]
-layout_mode = 2
-
-[node name="Button" parent="action_root/PanelContainer2/content" instance=ExtResource("3_ibfkw")]
-layout_mode = 2
-
-[node name="Button2" parent="action_root/PanelContainer2/content" instance=ExtResource("3_ibfkw")]
-layout_mode = 2
-
-[node name="Button3" parent="action_root/PanelContainer2/content" instance=ExtResource("3_ibfkw")]
-layout_mode = 2
-
-[node name="Button4" parent="action_root/PanelContainer2/content" instance=ExtResource("3_ibfkw")]
-layout_mode = 2
-
-[node name="Button5" parent="action_root/PanelContainer2/content" instance=ExtResource("3_ibfkw")]
-layout_mode = 2
-
-[node name="Button6" parent="action_root/PanelContainer2/content" instance=ExtResource("3_ibfkw")]
-layout_mode = 2
+[editable path="InfiniteScrollContainer"]
