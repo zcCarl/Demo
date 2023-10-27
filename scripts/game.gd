@@ -5,12 +5,27 @@ class_name game
 @onready var _action_manager = $action_manager
 @onready var _battles:Array[battle_system] = []
 @onready var _teams:Array[base_team] = []
+var _ui_main_game:ui_main_game
 var _ememy_team : base_team
 # Called when the node enters the scene tree for the first time.
 func setup():
 	_player_controller.setup(_scene)
+	_ui_main_game = ui_root.open(ui_config.ui_module_enum.ui_main_game) as ui_main_game
+	_ui_main_game.on_character_attack_preview.connect(preview_attack)
+	_ui_main_game.on_character_move_preview.connect(preview_move)
+	_ui_main_game.on_character_spell_preview.connect(preview_spell)
+	_ui_main_game.on_character_spell_preview.connect(open_bag)
 	test_battle()
 	pass # Replace with function body.
+
+func dispose():
+	_ui_main_game.close()
+	for t in _teams:
+		t.dispose()
+	for b in _battles:
+		b.dispose()
+	_scene.dispose()
+	pass
 
 func create_team(player:bool,friend:bool,size:int,members:Array[base_character]):
 	var new_team = base_team.new(player,friend,size)
@@ -53,17 +68,29 @@ func start_battle(teams:Array[base_team]):
 
 func next_turn(battle:battle_system):
 	_player_controller.set_character(battle._current_turn_character)
+	_ui_main_game.set_cur_character(battle._current_turn_character)
 	pass
 	
-func change_battle(battle):
+func change_battle(battle:battle_system):
 	_player_controller.set_character(battle._current_turn_character)
+	_ui_main_game.set_cur_character(battle._current_turn_character)
 	pass
 
 func end_battle(battle:battle_system):
 	_battles.erase(battle)
 	pass
 
+func preview_move(c:base_character):
+	
+	pass
+
+func preview_attack(c:base_character):
+	pass
 func preview_spell(c:base_character):
+	pass
+	
+func open_bag(c:base_character):
+	
 	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

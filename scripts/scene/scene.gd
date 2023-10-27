@@ -28,3 +28,5 @@ func refresh_action_area(skill_info:base_action):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+func dispose():
+	pass

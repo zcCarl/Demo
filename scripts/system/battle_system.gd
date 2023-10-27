@@ -14,7 +14,10 @@ var turns = 0
 
 func _init():
 	pass
-
+func setup():
+	pass
+func dispose():
+	pass
 func join_queue(team:base_team):
 	team.battle_start()
 	_teams.append(team)

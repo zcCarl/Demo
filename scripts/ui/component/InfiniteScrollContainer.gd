@@ -4,7 +4,6 @@ const ITEM_HEIGHT = 40
 @onready var content:Control = $content
 var item_to_index = {}
 var item_to_remove = []
-var total_items = 0
 var start_index = 0
 var end_index = 0
 var start_page = 0
@@ -19,31 +18,27 @@ var content_pos = 0
 
 func _ready():
 	get_v_scroll_bar().connect("value_changed",_on_VScrollBar_value_changed)
-	total_items = 100
-	for i in total_items:
-		var data = InfiniteScrollContainerItem.InfiniteScrollContainerItemData.new(i,40,{}) 
-		datas.append(data)
-		
-	set_datas(datas)
+
 	
 func _on_VScrollBar_value_changed(value:float):
 	content_pos = value
 	update_visible_items(value)
 	
-func set_datas(datas:Array[InfiniteScrollContainerItem.InfiniteScrollContainerItemData]):
+func set_datas(datas):
 	var current = 0
 	content_size = 0
 	for data in datas:
-		if page.size() <= current:
-			page.append([])
-			page_height.append(0)
-		if page[current].size() == PAGE_DATA_SIZE:
-			current += 1
-			page.append([])
-			page_height.append(0)
-		page[current].append(data)
-		page_height[current] += data._item_height
-		content_size += data._item_height
+		if data is InfiniteScrollContainerItem.InfiniteScrollContainerItemData:
+			if page.size() <= current:
+				page.append([])
+				page_height.append(0)
+			if page[current].size() == PAGE_DATA_SIZE:
+				current += 1
+				page.append([])
+				page_height.append(0)
+			page[current].append(data)
+			page_height[current] += data._item_height
+			content_size += data._item_height
 	content.custom_minimum_size = Vector2(get_rect().size.x,content_size)
 	start_index = 0
 	start_page = 0

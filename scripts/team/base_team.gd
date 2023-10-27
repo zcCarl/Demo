@@ -19,6 +19,8 @@ func _init(is_player:bool,is_firendly:bool,size:int):
 func setup(team_tag):
 	pass
 
+func dispose():
+	pass
 func replace_character(index:int,c:base_character):
 	if _members.has(index):
 		_members[index] = c

@@ -16,7 +16,7 @@ cmd_path="ee"
 [application]
 
 config/name="Nano"
-run/main_scene="res://scene/ui/u_main_game.tscn"
+run/main_scene="res://scene/main.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 

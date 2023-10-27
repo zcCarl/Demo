@@ -3,8 +3,9 @@ extends Node
 enum ui_module_enum{
 	ui_main_ready,
 	ui_main_save,
+	ui_main_game,
 	ui_message,
-	character_hud,
+	#character_hud,
 }
 
 var data: Array[Dictionary]= [
@@ -14,6 +15,10 @@ var data: Array[Dictionary]= [
 	},
 	{
 		path = "res://scene/ui/ui_main_save.tscn",
+		layer = Enum.ui_layer.fullscreen_root,
+	},
+	{
+		path = "res://scene/ui/ui_main_game.tscn",
 		layer = Enum.ui_layer.fullscreen_root,
 	},
 	{

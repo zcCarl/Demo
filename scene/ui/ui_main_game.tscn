@@ -1,28 +1,29 @@
 [gd_scene load_steps=4 format=3 uid="uid://6sfgqbgalnhx"]
 
-[ext_resource type="Script" path="res://scripts/ui/ui_main_game.gd" id="1_2utra"]
-[ext_resource type="PackedScene" uid="uid://bcbts8y13teoe" path="res://scene/ui/InfiniteScrollContainer.tscn" id="2_cadrb"]
-[ext_resource type="PackedScene" uid="uid://cg5ng2acpqvq1" path="res://scene/ui/InfiniteScrollContainerItem_Test1.tscn" id="3_ionq0"]
+[ext_resource type="Script" path="res://scripts/ui/ui_main_game.gd" id="1_b1olu"]
+[ext_resource type="PackedScene" uid="uid://bcbts8y13teoe" path="res://scene/ui/InfiniteScrollContainer.tscn" id="2_xyq87"]
+[ext_resource type="PackedScene" uid="uid://cg5ng2acpqvq1" path="res://scene/ui/InfiniteScrollContainerItem_Test1.tscn" id="3_vj627"]
 
-[node name="u_main_game" type="Control"]
+[node name="ui_main_game" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_2utra")
+mouse_filter = 2
+script = ExtResource("1_b1olu")
 
 [node name="action_root" type="Control" parent="."]
+layout_mode = 1
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
 
 [node name="select_root" type="VFlowContainer" parent="action_root"]
-visible = false
 layout_mode = 0
-offset_right = 516.0
-offset_bottom = 220.0
+offset_left = 62.0
+offset_top = -88.0
+offset_right = 167.0
+offset_bottom = 132.0
 
 [node name="move_btn" type="Button" parent="action_root/select_root"]
 custom_minimum_size = Vector2(100, 40)
@@ -44,12 +45,17 @@ custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "物品"
 
-[node name="InfiniteScrollContainer" parent="." instance=ExtResource("2_cadrb")]
+[node name="sub_select_root" parent="action_root" instance=ExtResource("2_xyq87")]
 layout_mode = 1
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 0.0
-offset_bottom = 0.0
-template = ExtResource("3_ionq0")
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 171.0
+offset_top = -52.0
+offset_right = 271.0
+offset_bottom = 122.0
+grow_horizontal = 1
+grow_vertical = 1
+template = ExtResource("3_vj627")
 
-[editable path="InfiniteScrollContainer"]
+[editable path="action_root/sub_select_root"]

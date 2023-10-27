@@ -9,6 +9,7 @@ enum module_enum {
 	module_save,
 	module_user,
 	module_world,
+	module_bag,
 }
 var modules_table = {
 	#module_enum.module_account : module_account.new(),
